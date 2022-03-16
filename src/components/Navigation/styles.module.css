@@ -1,0 +1,27 @@
+.container {
+    background: #ddd;
+}
+
+.flexContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 3rem;
+    list-style: none;
+}
+
+.flexContainer__item {
+    height: 100%;
+    padding: 0 1rem;
+    display: inline-flex;
+}
+
+.flexContainer__item * {
+    text-decoration: none;
+    margin: auto;
+}
+
+.flexContainer__item:hover {
+    background: #bbb;
+    cursor: pointer;
+}
