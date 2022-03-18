@@ -1,20 +1,30 @@
-import React, { useState, createRef } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { Button, Input } from "@mui/material";
 
 const App = () => {
+    const [fileInput, setfileInput] = useState(null);
+    const [fileData, setFileData] = useState("{}");
 
-    const fileInput = createRef();
-    const [filePath, setFilePath] = useState();
+    const readDataFromFile = () => {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const str = event.target.result;
+            const rows = str.split("\n", 15);
+            setFileData(rows.join("\n") + "\n...");
+            
+        };
+        reader.readAsText(fileInput);
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(filePath);
+        readDataFromFile();
     };
 
     const handleChange = (event) => {
-        setFilePath(event.target.files[0]);
-    }
+        setfileInput(event.target.files[0]);
+    };
 
     return (
         <div className="App">
@@ -24,12 +34,13 @@ const App = () => {
             <form onSubmit={handleSubmit}>
                 <label>
                     Upload CSV:
-                    <Input type="file" onChange={handleChange} ref={fileInput} name="csvFile" />
+                    <Input className="file-input" type="file" onChange={handleChange} name="csvFile" />
                 </label>
-                <Button variant="contained" type="submit">
+                <Button disabled={fileInput === null} variant="contained" type="submit">
                     Submit
                 </Button>
             </form>
+            <pre>{fileData}</pre>
         </div>
     );
 };
