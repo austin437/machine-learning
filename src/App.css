@@ -6,6 +6,10 @@
   height: 100vh;
 }
 
+.file-input {
+    margin: 0 10px;
+}
+
 .callout {
     margin: 10px auto;
 }

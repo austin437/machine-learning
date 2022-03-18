@@ -1,18 +1,37 @@
+import React, { useState, createRef } from "react";
 import "./App.css";
-import React from "react";
-import Button from "@mui/material/Button";
+import { Button, Input } from "@mui/material";
 
-class App extends React.Component {
-    render() {
-        return (
-            <div className="App">
-                <div className="callout">
-                    <p>Please select a CSV file</p>
-                </div>
-                <Button variant="contained">Add CSV File</Button>
-            </div>
-        );
+const App = () => {
+
+    const fileInput = createRef();
+    const [filePath, setFilePath] = useState();
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(filePath);
+    };
+
+    const handleChange = (event) => {
+        setFilePath(event.target.files[0]);
     }
-}
+
+    return (
+        <div className="App">
+            <div className="callout">
+                <p>Please select a CSV file</p>
+            </div>
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Upload CSV:
+                    <Input type="file" onChange={handleChange} ref={fileInput} name="csvFile" />
+                </label>
+                <Button variant="contained" type="submit">
+                    Submit
+                </Button>
+            </form>
+        </div>
+    );
+};
 
 export default App;
