@@ -3,3 +3,4 @@
 - Combine with useReducer
 - Convert useState into useReducer.
 - Implement useActions pattern on reducer.
+- Convert styles to StyleSheet (material-ui)
