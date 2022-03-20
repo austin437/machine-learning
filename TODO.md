@@ -1,0 +1,5 @@
+- Move logic into component 
+- Use context api to make Excel data available everywhere
+- Combine with useReducer
+- Convert useState into useReducer.
+- Implement useActions pattern on reducer.
