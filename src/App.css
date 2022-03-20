@@ -5,12 +5,14 @@
 }
 
 .App {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  height: 100vh;
-  padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    padding: 10px;
+    max-width: 1200px;
+    margin: auto;
 }
 
 .file-input {
@@ -27,9 +29,5 @@ pre {
     margin: 5px;
     padding: 10px;
     width: 100%;
+    box-shadow: inset 5px 5px 0 #bbb, inset -5px -5px 0 #bbb;
 }
-
-
-
-
-
