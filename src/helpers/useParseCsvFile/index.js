@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect } from "react";
-import { shuffle as _shuffle } from "shuffle-seed";
 
 function useParseCsvFile(fileInput) {
     const [headers, setHeaders] = useState([]);
@@ -23,7 +22,7 @@ function useParseCsvFile(fileInput) {
     }, [fileInput]);
 
     useEffect(() => {
-        parseCsv();
+        return parseCsv();
     }, [parseCsv]);
 
     return { headers, rows };

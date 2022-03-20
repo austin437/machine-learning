@@ -6,15 +6,18 @@ function useActions(state, dispatch) {
 
     const setCsvHeaders = useCallback(() => {
         dispatch({ type: "setCsvHeaders", payload: headers });
-    }, [headers]);
+    }, [headers, dispatch]);
 
     const setCsvData = useCallback(() => {
         dispatch({ type: "setCsvData", payload: rows });
-    }, [rows]);
+    }, [rows, dispatch]);
 
-    const handleFileChange = useCallback((event) => {
-        dispatch({ type: "setFileInput", payload: event.target.files[0] });
-    });
+    const handleFileChange = useCallback(
+        (event) => {
+            dispatch({ type: "setFileInput", payload: event.target.files[0] });
+        },
+        [dispatch]
+    );
 
     return { handleFileChange, setCsvHeaders, setCsvData };
 }
