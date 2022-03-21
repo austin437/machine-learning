@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 
 function useParseCsvFile(fileInput) {
+    //convert to single state object???
     const [headers, setHeaders] = useState([]);
     const [rows, setRows] = useState([]);
 
@@ -22,7 +23,10 @@ function useParseCsvFile(fileInput) {
     }, [fileInput]);
 
     useEffect(() => {
-        return parseCsv();
+        parseCsv();
+        return () => {
+            setHeaders([]); // This worked for me
+        };
     }, [parseCsv]);
 
     return { headers, rows };
