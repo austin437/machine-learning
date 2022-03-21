@@ -1,9 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 
 function useParseCsvFile(fileInput) {
-    //convert to single state object???
-    const [headers, setHeaders] = useState([]);
-    const [rows, setRows] = useState([]);
+    const [data, setData] = useState({ headers: [], rows: [] });
 
     const parseCsv = useCallback(() => {
         if (fileInput) {
@@ -13,10 +11,8 @@ function useParseCsvFile(fileInput) {
                 const allRows = str.split("\n");
 
                 const headers = allRows.slice(0, 1)[0].split(",");
-                setHeaders(headers);
-
                 const rows = allRows.slice(1, allRows.length).map((v) => v.split(","));
-                setRows(rows);
+                setData({ headers: headers, rows: rows });
             };
             reader.readAsText(fileInput);
         }
@@ -24,12 +20,9 @@ function useParseCsvFile(fileInput) {
 
     useEffect(() => {
         parseCsv();
-        return () => {
-            setHeaders([]); // This worked for me
-        };
     }, [parseCsv]);
 
-    return { headers, rows };
+    return data;
 }
 
 export { useParseCsvFile };
