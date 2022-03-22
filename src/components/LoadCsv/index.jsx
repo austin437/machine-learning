@@ -1,8 +1,9 @@
 import React, { useReducer, useEffect } from "react";
 import { Input } from "@mui/material";
-import classes from "./styles.module.css";
 
 import { reducer, useActions, initialState } from "./lib/reducer";
+import { FeatureSelector } from "../";
+import classes from "./styles.module.css";
 
 const LoadCsv = (props) => {
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -27,7 +28,7 @@ const LoadCsv = (props) => {
                     <Input className={classes.fileInput} type="file" onChange={handleFileChange} name="csvFile" />
                 </label>
             </form>
-            <pre>{state.csvHeaders.map((v) => v + "\n")}</pre>
+            <FeatureSelector data={{ headers: state.csvHeaders, rows: state.csvData }} />
         </>
     );
 };

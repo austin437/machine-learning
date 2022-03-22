@@ -1,3 +1,4 @@
 import { LoadCsv } from "./LoadCsv";
+import { FeatureSelector } from "./FeatureSelector";
 
-export { LoadCsv };
+export { LoadCsv, FeatureSelector };
