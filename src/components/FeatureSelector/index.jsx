@@ -10,28 +10,32 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
+import _ from "lodash";
 
 const FeatureSelector = ({ data, ...props }) => {
-    const [checked, setChecked] = React.useState([]);
+    const headers = data.headers.map((v, i) => ({
+        fieldName: v,
+        dataType: typeof parseInt(data.rows[0][i]),
+        use: false,
+    }));
+
+    const [dataValues, setDataValues] = useState(headers);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(event.target.elements);
+        console.log(dataValues);
     };
 
-    const handleInputChange = (event) => {};
-
-    const rows = [
-        { fieldName: "MPG", dataType: "number" },
-        { fieldName: "HorsePower", dataType: "number" },
-        { fieldName: "Weight", dataType: "string" },
-        { fieldName: "Acceleration", dataType: "number" },
-    ];
+    const handleInputChange = (row) => {
+        const rowIndex = dataValues.findIndex((v) => v.fieldName === row.fieldName, row.fieldName);
+        const updatedRow = { ...dataValues[rowIndex], use: !dataValues[rowIndex].use };
+        const newDataValues = _.cloneDeep(dataValues);
+        newDataValues[rowIndex] = updatedRow;
+        setDataValues(newDataValues);
+    };
 
     return (
         <>
-            <pre>{data.headers.map((v) => v + "\n")}</pre>
-
             <form className={classes.form} onSubmit={handleSubmit}>
                 <TableContainer sx={{ marginBottom: 2 }} component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -43,15 +47,21 @@ const FeatureSelector = ({ data, ...props }) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map((row) => (
+                            {dataValues.map((row) => (
                                 <TableRow
                                     key={row.fieldName}
                                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                                 >
-                                    <TableCell>{row.fieldName}</TableCell>
+                                    <TableCell sx={{ textTransform: "uppercase" }}>{row.fieldName}</TableCell>
                                     <TableCell sx={{ textTransform: "capitalize" }}>{row.dataType}</TableCell>
                                     <TableCell align="center">
-                                        <Checkbox onChange={handleInputChange} />
+                                        <Checkbox
+                                            disableRipple
+                                            onChange={(e) => {
+                                                handleInputChange(row);
+                                            }}
+                                            checked={row.use}
+                                        />
                                     </TableCell>
                                 </TableRow>
                             ))}
