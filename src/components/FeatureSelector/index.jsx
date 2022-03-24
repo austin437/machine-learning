@@ -19,7 +19,7 @@ const FeatureSelector = ({ data, ...props }) => {
         () =>
             data.headers.map((v, i) => ({
                 fieldName: v,
-                dataType: typeof parseInt(data.rows[0][i]),
+                isNumeric: !isNaN(parseInt(data.rows[0][i])),
                 use: false,
             })),
         [data]
@@ -50,8 +50,8 @@ const FeatureSelector = ({ data, ...props }) => {
                         <TableHead>
                             <TableRow>
                                 <TableCell>Feature</TableCell>
-                                <TableCell>Data type</TableCell>
-                                <TableCell align="center">Use</TableCell>
+                                <TableCell>Is Numeric?</TableCell>
+                                <TableCell align="center">Use?</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -61,9 +61,12 @@ const FeatureSelector = ({ data, ...props }) => {
                                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                                 >
                                     <TableCell sx={{ textTransform: "uppercase" }}>{row.fieldName}</TableCell>
-                                    <TableCell sx={{ textTransform: "capitalize" }}>{row.dataType}</TableCell>
+                                    <TableCell sx={{ textTransform: "capitalize" }}>
+                                        {row.isNumeric ? "TRUE" : "FALSE"}
+                                    </TableCell>
                                     <TableCell align="center">
                                         <Checkbox
+                                            disabled={!row.isNumeric}
                                             disableRipple
                                             onChange={(e) => {
                                                 handleInputChange(row);
