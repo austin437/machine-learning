@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
 import classes from "./styles.module.css";
 import Table from "@mui/material/Table";
@@ -13,13 +13,21 @@ import Button from "@mui/material/Button";
 import _ from "lodash";
 
 const FeatureSelector = ({ data, ...props }) => {
-    const headers = data.headers.map((v, i) => ({
-        fieldName: v,
-        dataType: typeof parseInt(data.rows[0][i]),
-        use: false,
-    }));
+    const [dataValues, setDataValues] = useState([]);
 
-    const [dataValues, setDataValues] = useState(headers);
+    const headers = useMemo(
+        () =>
+            data.headers.map((v, i) => ({
+                fieldName: v,
+                dataType: typeof parseInt(data.rows[0][i]),
+                use: false,
+            })),
+        [data]
+    );
+
+    useEffect(() => {
+        setDataValues(headers);
+    }, [headers]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
