@@ -1,6 +1,5 @@
 import React, { useReducer, useEffect } from "react";
 import { Input } from "@mui/material";
-
 import { reducer, useActions, initialState } from "./lib/reducer";
 import { FeatureSelector } from "../";
 import classes from "./styles.module.css";

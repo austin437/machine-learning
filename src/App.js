@@ -1,11 +1,15 @@
 import React from "react";
 import "./App.css";
-import { LoadCsv } from "./components";
+import { LoadCsv, LinearRegression } from "./components";
+import { Routes, Route } from "react-router-dom";
 
 const App = () => {
     return (
         <div className="App">
-            <LoadCsv />
+            <Routes>
+                <Route path="/" element={<LoadCsv />} />
+                <Route path="/linear-regression" element={<LinearRegression />} />
+            </Routes>
         </div>
     );
 };

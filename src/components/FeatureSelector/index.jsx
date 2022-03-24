@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import classes from "./styles.module.css";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -12,7 +12,10 @@ import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import _ from "lodash";
 
+import classes from "./styles.module.css";
+
 const FeatureSelector = ({ data, ...props }) => {
+    const navigate = useNavigate();
     const [dataValues, setDataValues] = useState([]);
 
     const headers = useMemo(
@@ -31,7 +34,7 @@ const FeatureSelector = ({ data, ...props }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(dataValues);
+        navigate("/linear-regression", { state: dataValues });
     };
 
     const handleInputChange = (row) => {

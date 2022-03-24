@@ -4,6 +4,7 @@ TODO
 - Add hashbang routing???
     - Next page after Feature Selector should be the page that performs the
     algorithm and prints console logs to screen.
+    - Create test-utils file for rendering all components with a router
 - Convert styles to StyleSheet (material-ui)
 
 DONE
