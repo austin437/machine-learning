@@ -36,11 +36,8 @@ const LinearRegression = (props) => {
                         labelPlacement="start"
                         control={
                             <Select
-                                sx={{ minWidth: 300, marginLeft: 10 }}
-                                labelId="predictionLabel"
-                                id="prediction"
-                                value={state.labels[0]}
-                                label="Predict"
+                                sx={{ minWidth: 300, marginLeft: 14 }}
+                                value={state.labels[0]}                              
                                 onChange={(e) => dispatch({ type: "setPredictionLabel", payload: e.target.value })}
                             >
                                 {data.headers
@@ -64,9 +61,11 @@ const LinearRegression = (props) => {
                         labelPlacement="start"
                         control={
                             <Input
-                                sx={{ minWidth: 300, marginLeft: 10 }}
-                                id="splitTest"
+                                sx={{ minWidth: 300, marginLeft: 14 }}
                                 type="number"
+                                inputProps={{
+                                    min: 1,
+                                }}
                                 required
                                 onChange={(e) => dispatch({ type: "setSplitTest", payload: e.target.value })}
                                 value={state.splitTest}
@@ -81,14 +80,34 @@ const LinearRegression = (props) => {
                         labelPlacement="start"
                         control={
                             <Checkbox
-                                sx={{ marginLeft: 10 }}
+                                sx={{ marginLeft: 14 }}
                                 {...label}
-                                id="shuffle"
                                 onChange={(e) => dispatch({ type: "setShuffle", payload: e.target.checked })}
                                 checked={state.shuffle}
                             />
                         }
                         label="Shuffle"
+                    />
+                </FormControl>
+                <FormControl sx={{ display: "block", marginTop: 2 }}>
+                    <FormControlLabel
+                        labelPlacement="start"
+                        control={
+                            <Input
+                                sx={{ minWidth: 300, marginLeft: 10 }}
+                                type="number"
+                                inputProps={{
+                                    step: "0.1",
+                                    min: 0.1,
+                                    max: 3,
+                                }}
+                                required
+                                onChange={(e) => dispatch({ type: "setLearningRate", payload: e.target.value })}
+                                value={state.learningRate}
+                                aria-describedby="learning rate"
+                            />
+                        }
+                        label="Learning Rate"
                     />
                 </FormControl>
                 <Divider light />

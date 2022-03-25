@@ -8,6 +8,8 @@ function reducer(state, action) {
             return { ...state, splitTest: action.payload };
         case "setShuffle":
             return { ...state, shuffle: action.payload };
+        case "setLearningRate":
+            return { ...state, learningRate: action.payload };
         default:
             throw new Error();
     }
