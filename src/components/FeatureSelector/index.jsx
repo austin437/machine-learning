@@ -23,7 +23,7 @@ const FeatureSelector = ({ data, ...props }) => {
             data.headers.map((v, i) => ({
                 fieldName: v,
                 isNumeric: !isNaN(parseInt(data.rows[0][i])),
-                use: false,
+                isFeature: false,
             })),
         [data]
     );
@@ -34,12 +34,12 @@ const FeatureSelector = ({ data, ...props }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        navigate("/linear-regression", { state: dataValues });
+        navigate("/linear-regression", { state: { headers: dataValues, rows: data.rows } });
     };
 
     const handleInputChange = (row) => {
         const rowIndex = dataValues.findIndex((v) => v.fieldName === row.fieldName, row.fieldName);
-        const updatedRow = { ...dataValues[rowIndex], use: !dataValues[rowIndex].use };
+        const updatedRow = { ...dataValues[rowIndex], isFeature: !dataValues[rowIndex].isFeature };
         const newDataValues = _.cloneDeep(dataValues);
         newDataValues[rowIndex] = updatedRow;
         setDataValues(newDataValues);
@@ -54,7 +54,7 @@ const FeatureSelector = ({ data, ...props }) => {
                             <TableRow>
                                 <TableCell>Feature</TableCell>
                                 <TableCell>Is Numeric?</TableCell>
-                                <TableCell align="center">Use?</TableCell>
+                                <TableCell align="center">Feature?</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -74,7 +74,7 @@ const FeatureSelector = ({ data, ...props }) => {
                                             onChange={(e) => {
                                                 handleInputChange(row);
                                             }}
-                                            checked={row.use}
+                                            checked={row.isFeature}
                                         />
                                     </TableCell>
                                 </TableRow>
