@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { LoadCsv, LoadOptions } from "./components";
+import { LoadCsv, LoadOptions, ProcessData } from "./components";
 import { Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -9,6 +9,7 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<LoadCsv />} />
                 <Route path="/load-options" element={<LoadOptions />} />
+                <Route path="/process-data" element={<ProcessData />} />
             </Routes>
         </div>
     );

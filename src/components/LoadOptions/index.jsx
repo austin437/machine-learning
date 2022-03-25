@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import {
     Select,
     MenuItem,
@@ -20,10 +20,11 @@ import classes from "./styles.module.css";
 const LoadOptions = (props) => {
     const { state: data } = useLocation();
     const [state, dispatch] = useReducer(reducer, initialState);
+    const navigate = useNavigate();   
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(state);
+        navigate("/process-data", { state: { options: state, data: data } });
     };
 
     const label = { inputProps: { "aria-label": "Checkbox demo" } };
@@ -110,7 +111,7 @@ const LoadOptions = (props) => {
                                     <Input
                                         sx={{ minWidth: 300 }}
                                         type="number"
-                                        inputProps={{                                            
+                                        inputProps={{
                                             min: 1,
                                             max: 1000,
                                         }}
@@ -127,7 +128,7 @@ const LoadOptions = (props) => {
                                     <Input
                                         sx={{ minWidth: 300 }}
                                         type="number"
-                                        inputProps={{                                           
+                                        inputProps={{
                                             min: 1,
                                             max: 1000,
                                         }}
