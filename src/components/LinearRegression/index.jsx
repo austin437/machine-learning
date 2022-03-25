@@ -4,12 +4,14 @@ import {
     Select,
     MenuItem,
     Checkbox,
-    InputLabel,
-    FormControl,
-    FormControlLabel,
     Input,
     Button,
-    Divider,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableRow,
+    Paper,
 } from "@mui/material";
 import _ from "lodash";
 
@@ -31,86 +33,80 @@ const LinearRegression = (props) => {
         <>
             <h2>Linear Regression</h2>
             <form className={classes.form} onSubmit={handleSubmit}>
-                <FormControl sx={{ display: "block", marginTop: 2 }}>
-                    <FormControlLabel
-                        labelPlacement="start"
-                        control={
-                            <Select
-                                sx={{ minWidth: 300, marginLeft: 14 }}
-                                value={state.labels[0]}                              
-                                onChange={(e) => dispatch({ type: "setPredictionLabel", payload: e.target.value })}
-                            >
-                                {data.headers
-                                    .filter((x) => !x.isFeature)
-                                    .map((v) => (
-                                        <MenuItem
-                                            key={v.fieldName}
-                                            sx={{ textTransform: "capitalize" }}
-                                            value={v.fieldName}
-                                        >
-                                            {v.fieldName}
-                                        </MenuItem>
-                                    ))}
-                            </Select>
-                        }
-                        label="Prediction"
-                    />
-                </FormControl>
-                <FormControl sx={{ display: "block", marginTop: 2 }}>
-                    <FormControlLabel
-                        labelPlacement="start"
-                        control={
-                            <Input
-                                sx={{ minWidth: 300, marginLeft: 14 }}
-                                type="number"
-                                inputProps={{
-                                    min: 1,
-                                }}
-                                required
-                                onChange={(e) => dispatch({ type: "setSplitTest", payload: e.target.value })}
-                                value={state.splitTest}
-                                aria-describedby="split test"
-                            />
-                        }
-                        label="Split Test"
-                    />
-                </FormControl>
-                <FormControl sx={{ display: "block", marginTop: 2 }}>
-                    <FormControlLabel
-                        labelPlacement="start"
-                        control={
-                            <Checkbox
-                                sx={{ marginLeft: 14 }}
-                                {...label}
-                                onChange={(e) => dispatch({ type: "setShuffle", payload: e.target.checked })}
-                                checked={state.shuffle}
-                            />
-                        }
-                        label="Shuffle"
-                    />
-                </FormControl>
-                <FormControl sx={{ display: "block", marginTop: 2 }}>
-                    <FormControlLabel
-                        labelPlacement="start"
-                        control={
-                            <Input
-                                sx={{ minWidth: 300, marginLeft: 10 }}
-                                type="number"
-                                inputProps={{
-                                    step: "0.1",
-                                    min: 0.1,
-                                    max: 3,
-                                }}
-                                required
-                                onChange={(e) => dispatch({ type: "setLearningRate", payload: e.target.value })}
-                                value={state.learningRate}
-                                aria-describedby="learning rate"
-                            />
-                        }
-                        label="Learning Rate"
-                    />
-                </FormControl>
-                <Divider light />
+                <TableContainer sx={{ marginBottom: 2 }} component={Paper}>
+                    <Table sx={{ minWidth: 650 }} size="small" aria-label="Feature table">
+                        <TableBody>
+                            <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                                <TableCell sx={{ textTransform: "uppercase" }}>Prediction</TableCell>
+                                <TableCell>
+                                    <Select
+                                        sx={{ minWidth: 300 }}
+                                        value={state.labels[0]}
+                                        onChange={(e) =>
+                                            dispatch({ type: "setPredictionLabel", payload: e.target.value })
+                                        }
+                                    >
+                                        {data.headers
+                                            .filter((x) => !x.isFeature)
+                                            .map((v) => (
+                                                <MenuItem
+                                                    key={v.fieldName}
+                                                    sx={{ textTransform: "capitalize" }}
+                                                    value={v.fieldName}
+                                                >
+                                                    {v.fieldName}
+                                                </MenuItem>
+                                            ))}
+                                    </Select>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                                <TableCell sx={{ textTransform: "uppercase" }}>Split Test</TableCell>
+                                <TableCell>
+                                    <Input
+                                        sx={{ minWidth: 300 }}
+                                        type="number"
+                                        inputProps={{
+                                            min: 1,
+                                        }}
+                                        required
+                                        onChange={(e) => dispatch({ type: "setSplitTest", payload: e.target.value })}
+                                        value={state.splitTest}
+                                        aria-describedby="split test"
+                                    />
+                                </TableCell>
+                            </TableRow>
+                            <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                                <TableCell sx={{ textTransform: "uppercase" }}>Shuffle</TableCell>
+                                <TableCell>
+                                    <Checkbox
+                                        {...label}
+                                        onChange={(e) => dispatch({ type: "setShuffle", payload: e.target.checked })}
+                                        checked={state.shuffle}
+                                    />
+                                </TableCell>
+                            </TableRow>
+                            <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                                <TableCell sx={{ textTransform: "uppercase" }}>Learning Rate</TableCell>
+                                <TableCell>
+                                    <Input
+                                        sx={{ minWidth: 300 }}
+                                        type="number"
+                                        inputProps={{
+                                            step: "0.1",
+                                            min: 0.1,
+                                            max: 3,
+                                        }}
+                                        required
+                                        onChange={(e) => dispatch({ type: "setLearningRate", payload: e.target.value })}
+                                        value={state.learningRate}
+                                        aria-describedby="learning rate"
+                                    />
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
                 <Button sx={{ display: "block", marginTop: 2, marginBottom: 2 }} type="submit" variant="contained">
                     Submit
                 </Button>
