@@ -27,7 +27,7 @@ const LoadCsv = (props) => {
                     <Input className={classes.fileInput} type="file" onChange={handleFileChange} name="csvFile" />
                 </label>
             </form>
-            <FeatureSelector data={{ headers: state.csvHeaders, rows: state.csvData }} />
+            {state.fileInput ? <FeatureSelector data={{ headers: state.csvHeaders, rows: state.csvData }} /> : ""}
         </>
     );
 };

@@ -49,7 +49,7 @@ const FeatureSelector = ({ data, ...props }) => {
         <>
             <form className={classes.form} onSubmit={handleSubmit}>
                 <TableContainer sx={{ marginBottom: 2 }} component={Paper}>
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <Table sx={{ minWidth: 650 }} size="small" aria-label="Feature table">
                         <TableHead>
                             <TableRow>
                                 <TableCell>Feature</TableCell>
