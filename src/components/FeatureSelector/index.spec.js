@@ -1,6 +1,5 @@
-import { render } from "@testing-library/react";
+import { render } from '../../test-utils'
 import { FeatureSelector } from "../index";
-import { HashRouter, Routes, Route } from "react-router-dom";
 
 describe("FeatureSelector", () => {
     it("should render on load", () => {
@@ -12,13 +11,7 @@ describe("FeatureSelector", () => {
             ],
         };
 
-        const { getByText } = render(
-            <HashRouter>
-                <Routes>
-                    <Route path="/" element={<FeatureSelector data={data} />} />
-                </Routes>
-            </HashRouter>
-        );
+        const { getByText } = render(<FeatureSelector data={data} />);
 
         expect(getByText(/mpg/i)).not.toBeNull();
         expect(getByText(/horsepower/i)).not.toBeNull();

@@ -1,17 +1,10 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { render, screen } from '../../test-utils'
 import { LoadCsv } from "../../components";
 
 describe("LoadCsv", () => {
     it("renders data on load", () => {
-        render(
-            <HashRouter>
-                <Routes>
-                    <Route path="/" element={<LoadCsv />} />
-                </Routes>
-            </HashRouter>
-        );
+        render(<LoadCsv />);
 
         expect(screen.getByText(/upload csv/i)).not.toBeNull();
     });
