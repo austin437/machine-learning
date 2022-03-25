@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 function reducer(state, action) {     
     switch (action.type) {
         case "setPredictionLabel":
@@ -10,6 +8,10 @@ function reducer(state, action) {
             return { ...state, shuffle: action.payload };
         case "setLearningRate":
             return { ...state, learningRate: action.payload };
+        case "setIterations":
+            return { ...state, iterations: action.payload };
+        case "setBatchSize":
+            return { ...state, batchSize: action.payload };
         default:
             throw new Error();
     }

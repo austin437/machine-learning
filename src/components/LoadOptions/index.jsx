@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useReducer } from "react";
 import { useLocation, Link } from "react-router-dom";
 import {
     Select,
@@ -13,12 +13,11 @@ import {
     TableRow,
     Paper,
 } from "@mui/material";
-import _ from "lodash";
 
 import { initialState, reducer } from "./lib";
 import classes from "./styles.module.css";
 
-const LinearRegression = (props) => {
+const LoadOptions = (props) => {
     const { state: data } = useLocation();
     const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -31,7 +30,7 @@ const LinearRegression = (props) => {
 
     return (
         <>
-            <h2>Linear Regression</h2>
+            <h2>Choose Options</h2>
             <form className={classes.form} onSubmit={handleSubmit}>
                 <TableContainer sx={{ marginBottom: 2 }} component={Paper}>
                     <Table sx={{ minWidth: 650 }} size="small" aria-label="Feature table">
@@ -40,6 +39,7 @@ const LinearRegression = (props) => {
                                 <TableCell sx={{ textTransform: "uppercase" }}>Prediction</TableCell>
                                 <TableCell>
                                     <Select
+                                        required
                                         sx={{ minWidth: 300 }}
                                         value={state.labels[0]}
                                         onChange={(e) =>
@@ -104,6 +104,40 @@ const LinearRegression = (props) => {
                                     />
                                 </TableCell>
                             </TableRow>
+                            <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                                <TableCell sx={{ textTransform: "uppercase" }}>Iterations</TableCell>
+                                <TableCell>
+                                    <Input
+                                        sx={{ minWidth: 300 }}
+                                        type="number"
+                                        inputProps={{                                            
+                                            min: 1,
+                                            max: 1000,
+                                        }}
+                                        required
+                                        onChange={(e) => dispatch({ type: "setIterations", payload: e.target.value })}
+                                        value={state.iterations}
+                                        aria-describedby="iterations"
+                                    />
+                                </TableCell>
+                            </TableRow>
+                            <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                                <TableCell sx={{ textTransform: "uppercase" }}>Batch Size</TableCell>
+                                <TableCell>
+                                    <Input
+                                        sx={{ minWidth: 300 }}
+                                        type="number"
+                                        inputProps={{                                           
+                                            min: 1,
+                                            max: 1000,
+                                        }}
+                                        required
+                                        onChange={(e) => dispatch({ type: "setBatchSize", payload: e.target.value })}
+                                        value={state.batchSize}
+                                        aria-describedby="batch size"
+                                    />
+                                </TableCell>
+                            </TableRow>
                         </TableBody>
                     </Table>
                 </TableContainer>
@@ -116,4 +150,4 @@ const LinearRegression = (props) => {
     );
 };
 
-export { LinearRegression };
+export { LoadOptions };

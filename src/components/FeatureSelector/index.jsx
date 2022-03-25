@@ -34,7 +34,7 @@ const FeatureSelector = ({ data, ...props }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        navigate("/linear-regression", { state: { headers: dataValues, rows: data.rows } });
+        navigate("/load-options", { state: { headers: dataValues, rows: data.rows } });
     };
 
     const handleInputChange = (row) => {

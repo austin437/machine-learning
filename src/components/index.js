@@ -1,5 +1,5 @@
 import { LoadCsv } from "./LoadCsv";
 import { FeatureSelector } from "./FeatureSelector";
-import { LinearRegression } from "./LinearRegression";
+import { LoadOptions } from "./LoadOptions";
 
-export { LoadCsv, FeatureSelector, LinearRegression };
+export { LoadCsv, FeatureSelector, LoadOptions };

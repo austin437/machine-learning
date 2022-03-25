@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { LoadCsv, LinearRegression } from "./components";
+import { LoadCsv, LoadOptions } from "./components";
 import { Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -8,7 +8,7 @@ const App = () => {
         <div className="App">
             <Routes>
                 <Route path="/" element={<LoadCsv />} />
-                <Route path="/linear-regression" element={<LinearRegression />} />
+                <Route path="/load-options" element={<LoadOptions />} />
             </Routes>
         </div>
     );
