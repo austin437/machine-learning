@@ -1,5 +1,5 @@
 import { initialState } from "./initialState";
 import { reducer } from "./reducer";
-import { useActions } from "./useActions";
+import { useSideEffects } from "./useSideEffects";
 
-export { initialState, reducer, useActions };
+export { initialState, reducer, useSideEffects };

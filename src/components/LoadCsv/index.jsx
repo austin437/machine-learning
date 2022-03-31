@@ -1,20 +1,12 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer } from "react";
 import { Input } from "@mui/material";
-import { reducer, useActions, initialState } from "./lib/reducer";
+import { reducer, useSideEffects, initialState } from "./lib/reducer";
 import { FeatureSelector } from "../";
 import classes from "./styles.module.css";
 
 const LoadCsv = (props) => {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { handleFileChange, setCsvHeaders, setCsvData } = useActions(state, dispatch);
-
-    useEffect(() => {
-        setCsvHeaders();
-    }, [setCsvHeaders]);
-
-    useEffect(() => {
-        setCsvData();
-    }, [setCsvData]);
+    useSideEffects(state, dispatch);
 
     return (
         <>
@@ -24,7 +16,12 @@ const LoadCsv = (props) => {
             <form>
                 <label>
                     Upload CSV:
-                    <Input className={classes.fileInput} type="file" onChange={handleFileChange} name="csvFile" />
+                    <Input
+                        className={classes.fileInput}
+                        type="file"
+                        onChange={(event) => dispatch({ type: "setFileInput", payload: event.target.files[0] })}
+                        name="csvFile"
+                    />
                 </label>
             </form>
             {state.fileInput ? <FeatureSelector data={{ headers: state.csvHeaders, rows: state.csvData }} /> : ""}
