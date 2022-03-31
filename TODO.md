@@ -2,7 +2,7 @@ TODO
 
 
 - ProcessData:
-    - Get features columns based upon passed in state data.
+    - Get features labels based upon passed in state data.
 
     - Add mini-table (feature, average, prediction) for features that have been selected
         -In this table a user can select predictions for the given label
