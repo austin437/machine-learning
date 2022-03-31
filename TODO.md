@@ -2,11 +2,10 @@ TODO
 
 
 - ProcessData:
-    - Get features labels based upon passed in state data.
 
     - Add mini-table (feature, average, prediction) for features that have been selected
         -In this table a user can select predictions for the given label
-            be entering a value for each feature.
+            by entering a value for each feature.
         -Required
 
     - Add averages next to each prediction
@@ -29,3 +28,5 @@ DONE
 - Add hashbang routing???
     - Next page after Feature Selector should be the page that performs the
     algorithm and prints console logs to screen.
+- Get features labels based upon passed in state data.
+- Update LoadOptions to only include numeric fields in the Prediction drop down

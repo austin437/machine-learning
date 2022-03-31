@@ -10,27 +10,27 @@ const ProcessData = () => {
     const { state } = useLocation();
     const [output, setOutput] = useState("{}");
 
-    console.log(state);
+    const getIndexedHeaders = (headers) => headers.map((v, i) => ({ ...v, index: i }));
+
+    const extractColumnValues = (rows, indexes) => {
+        return rows.map((arr) => {
+            return arr.filter((v, i) => indexes.includes(i)).map(parseFloat);
+        });
+    };
 
     useEffect(() => {
-        const featureIndexes = state.data.headers
-            .map((v, i) => {
-                return { ...v, index: i };
-            })
-            .filter((x) => x.isFeature)
-            .map((v) => v.index);
+        const indexedHeaders = getIndexedHeaders(state.data.headers);
 
         // let testFeatures, testLabels;
-        let features = state.data.rows.map((arr) => {
-            return arr.filter((v, i) => featureIndexes.includes(i)).map(parseFloat);
-        });
 
-        //get labelIndexes and use to filter labels
-        const labelIndexes = state.options.labels;
+        const featureIndexes = indexedHeaders.filter((x) => x.isFeature).map((v) => v.index);
+        let features = extractColumnValues(state.data.rows, featureIndexes);
 
-        console.log(labelIndexes);
+        const labelIndexes = indexedHeaders
+            .filter((x) => state.options.labels.includes(x.fieldName))
+            .map((v) => v.index);
+        let labels = extractColumnValues(state.data.rows, labelIndexes);
 
-        // let labels = state.data.rows.map((v) => [parseFloat(v[1])]);
         // const { learningRate, iterations, batchSize } = state.options;
 
         // if (state.options.shuffle) {
@@ -60,7 +60,7 @@ const ProcessData = () => {
         //         [135, 2.18, 420],
         //     ])
         //     .print();
-    }, []);
+    }, [state]);
 
     return (
         <>

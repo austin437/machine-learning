@@ -43,7 +43,7 @@ const LoadOptions = () => {
                                             }
                                         >
                                             {data.headers
-                                                .filter((x) => !x.isFeature)
+                                                .filter((x) => !x.isFeature && x.isNumeric)
                                                 .map((v) => (
                                                     <MenuItem
                                                         key={v.fieldName}
