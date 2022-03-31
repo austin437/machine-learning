@@ -10,35 +10,49 @@ const ProcessData = () => {
     const { state } = useLocation();
     const [output, setOutput] = useState("{}");
 
+    console.log(state);
+
     useEffect(() => {
-        //Get feature columns using state.data.headers as index
-        // const features = state.data.headers.filter((x) => x.isFeature).map((v) => v.fieldName);
+        const featureIndexes = state.data.headers
+            .map((v, i) => {
+                return { ...v, index: i };
+            })
+            .filter((x) => x.isFeature)
+            .map((v) => v.index);
 
-        let testFeatures, testLabels;
-        let features = state.data.rows.map((v) => [parseFloat(v[3]), parseFloat(v[5])]);
-        let labels = state.data.rows.map((v) => [parseFloat(v[1])]);
-        const { learningRate, iterations, batchSize } = state.options;
+        // let testFeatures, testLabels;
+        let features = state.data.rows.map((arr) => {
+            return arr.filter((v, i) => featureIndexes.includes(i)).map(parseFloat);
+        });
 
-        if (state.options.shuffle) {
-            features = shuffleSeed.shuffle(features, "phrase");
-            labels = shuffleSeed.shuffle(labels, "phrase");
-        }
+        //get labelIndexes and use to filter labels
+        const labelIndexes = state.options.labels;
 
-        const regression = new LinearRegression(features, labels, { learningRate, iterations, batchSize }, setOutput);
+        console.log(labelIndexes);
 
-        if (state.options.splitTest) {
-            const trainSize = _.isNumber(state.options.splitTest)
-                ? state.options.splitTest
-                : Math.floor(features.length / 2);
+        // let labels = state.data.rows.map((v) => [parseFloat(v[1])]);
+        // const { learningRate, iterations, batchSize } = state.options;
 
-            features = features.slice(trainSize);
-            labels = labels.slice(trainSize);
-            testFeatures = features.slice(0, trainSize);
-            testLabels = labels.slice(0, trainSize);
-        }
+        // if (state.options.shuffle) {
+        //     features = shuffleSeed.shuffle(features, "phrase");
+        //     labels = shuffleSeed.shuffle(labels, "phrase");
+        // }
 
-        regression.train();
-        regression.test(testFeatures, testLabels);
+        // const regression = new LinearRegression(features, labels, { learningRate, iterations, batchSize }, setOutput);
+
+        // if (state.options.splitTest) {
+        //     const trainSize = _.isNumber(state.options.splitTest)
+        //         ? state.options.splitTest
+        //         : Math.floor(features.length / 2);
+
+        //     features = features.slice(trainSize);
+        //     labels = labels.slice(trainSize);
+        //     testFeatures = features.slice(0, trainSize);
+        //     testLabels = labels.slice(0, trainSize);
+        // }
+
+        // regression.train();
+        // regression.test(testFeatures, testLabels);
 
         // regression
         //     .predict([
@@ -52,7 +66,7 @@ const ProcessData = () => {
         <>
             <h1>Process data</h1>
             <p>
-                <b>Features:</b>{" "}
+                <b>Features: </b>
                 <span className={classes.capitalize}>
                     {state.data.headers
                         .filter((v) => v.isFeature)
@@ -61,7 +75,7 @@ const ProcessData = () => {
                 </span>
             </p>
             <p>
-                <b>Labels:</b>
+                <b>Labels: </b>
                 <span className={classes.capitalize}>{state.options.labels.join(", ")}</span>
             </p>
             <pre className={classes.pre}>{output}</pre>
