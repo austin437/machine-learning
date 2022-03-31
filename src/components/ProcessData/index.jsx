@@ -8,6 +8,7 @@ import { LinearRegression, useSideEffects } from "./lib";
 
 const ProcessData = () => {
     const { state } = useLocation();
+    console.log(state);
     const [output, setOutput] = useState("{}");
     const { initialFeatures, initialLabels } = useSideEffects(state);
 
