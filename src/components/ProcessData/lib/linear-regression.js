@@ -1,7 +1,7 @@
 import { tensor, zeros, ones, moments } from "@tensorflow/tfjs";
 import _ from "lodash";
 
-export default class LinearRegression {
+class LinearRegression {
     constructor(features, labels, options, setOutput) {
         this.features = this.processFeatures(features);
         this.labels = tensor(labels);
@@ -109,3 +109,5 @@ export default class LinearRegression {
         }
     }
 }
+
+export { LinearRegression };

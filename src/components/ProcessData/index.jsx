@@ -4,56 +4,35 @@ import classes from "./styles.module.css";
 import shuffleSeed from "shuffle-seed";
 import _ from "lodash";
 
-import LinearRegression from "./lib/linear-regression";
+import { LinearRegression, useSideEffects } from "./lib";
 
 const ProcessData = () => {
     const { state } = useLocation();
     const [output, setOutput] = useState("{}");
+    const { initialFeatures, initialLabels } = useSideEffects(state);
 
-    const getIndexedHeaders = (headers) => headers.map((v, i) => ({ ...v, index: i }));
-
-    const extractColumnValues = (rows, indexes) => {
-        return rows.map((arr) => {
-            return arr.filter((v, i) => indexes.includes(i)).map(parseFloat);
-        });
-    };
+    console.log("features", initialFeatures);
+    console.log("labels", initialLabels);
 
     useEffect(() => {
-        const indexedHeaders = getIndexedHeaders(state.data.headers);
-
-        // let testFeatures, testLabels;
-
-        const featureIndexes = indexedHeaders.filter((x) => x.isFeature).map((v) => v.index);
-        let features = extractColumnValues(state.data.rows, featureIndexes);
-
-        const labelIndexes = indexedHeaders
-            .filter((x) => state.options.labels.includes(x.fieldName))
-            .map((v) => v.index);
-        let labels = extractColumnValues(state.data.rows, labelIndexes);
-
+        let features, labels, testFeatures, testLabels;
         // const { learningRate, iterations, batchSize } = state.options;
-
         // if (state.options.shuffle) {
         //     features = shuffleSeed.shuffle(features, "phrase");
         //     labels = shuffleSeed.shuffle(labels, "phrase");
         // }
-
         // const regression = new LinearRegression(features, labels, { learningRate, iterations, batchSize }, setOutput);
-
         // if (state.options.splitTest) {
         //     const trainSize = _.isNumber(state.options.splitTest)
         //         ? state.options.splitTest
         //         : Math.floor(features.length / 2);
-
         //     features = features.slice(trainSize);
         //     labels = labels.slice(trainSize);
         //     testFeatures = features.slice(0, trainSize);
         //     testLabels = labels.slice(0, trainSize);
         // }
-
         // regression.train();
         // regression.test(testFeatures, testLabels);
-
         // regression
         //     .predict([
         //         [120, 2, 380],
@@ -65,6 +44,7 @@ const ProcessData = () => {
     return (
         <>
             <h1>Process data</h1>
+            <h2>Add table HERE!!!</h2>
             <p>
                 <b>Features: </b>
                 <span className={classes.capitalize}>
