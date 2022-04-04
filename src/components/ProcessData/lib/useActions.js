@@ -14,6 +14,10 @@ const useActions = (state) => {
         return state.data.headers.map((v, i) => ({ ...v, index: i }));
     }, [state.data.headers]);
 
+    const featureHeaders = useMemo(() => {
+        return indexedHeaders.filter((v) => v.isFeature);
+    }, [indexedHeaders]);
+
     const featureIndexes = useMemo(() => {
         return indexedHeaders.filter((x) => x.isFeature).map((v) => v.index);
     }, [indexedHeaders]);
@@ -30,7 +34,7 @@ const useActions = (state) => {
         return extractColumnValues(labelIndexes);
     }, [extractColumnValues, labelIndexes]);
 
-    return { initialFeatures, initialLabels };
+    return { initialFeatures, initialLabels, featureHeaders };
 };
 
 export { useActions };

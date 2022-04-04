@@ -62,17 +62,12 @@ const LoadOptions = () => {
                                 <TableCell>
                                     <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
                                         <Input
-                                            sx={{ minWidth: 300 }}
-                                            type="number"
-                                            inputProps={{
-                                                min: 1,
-                                            }}
-                                            required
-                                            onChange={(e) =>
-                                                dispatch({ type: "setSplitTest", payload: e.target.value })
+                                            className={classes.fileInput}
+                                            type="file"
+                                            onChange={(event) =>
+                                                dispatch({ type: "setFileInput", payload: event.target.files[0] })
                                             }
-                                            value={state.splitTest}
-                                            aria-describedby="split test"
+                                            name="csvFile"
                                         />
                                     </FormControl>
                                 </TableCell>
