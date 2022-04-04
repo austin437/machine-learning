@@ -2,16 +2,10 @@ TODO
 
 -   ProcessData:
 
-    -   Add mini-table (feature, average, prediction) for features that have been selected
-        -In this table a user can select predictions for the given label
-        by entering a value for each feature.
-        -Required
+    - Move Alerts to their own component
+    - Use useReducer instead of useState
+    - Move calculatePrediction to useActions
 
-    -   Add averages next to each prediction
-    -   Column simply calculates the average mean value for each column
-    -   It will help when user is predicting values
-
-    -   Add test for useActions
 
 -   Convert styles to StyleSheet (material-ui)
 
@@ -34,3 +28,14 @@ DONE
         algorithm and prints console logs to screen.
 -   Get features labels based upon passed in state data.
 -   Update LoadOptions to only include numeric fields in the Prediction drop down
+
+-   Add mini-table (feature, average, prediction) for features that have been selected
+    -In this table a user can select predictions for the given label
+    by entering a value for each feature.
+    -Required
+
+-   Add averages next to each prediction
+-   Column simply calculates the average mean value for each column
+-   It will help when user is predicting values
+
+-   Add test for useActions
