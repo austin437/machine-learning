@@ -1,12 +1,12 @@
 import React, { useReducer } from "react";
 import { Input } from "@mui/material";
-import { reducer, useSideEffects, initialState } from "./lib/reducer";
+import { reducer, useActions, initialState } from "./lib/reducer";
 import { FeatureSelector } from "../";
 import classes from "./styles.module.css";
 
 const LoadCsv = (props) => {
     const [state, dispatch] = useReducer(reducer, initialState);
-    useSideEffects(state, dispatch);
+    useActions(state, dispatch);
 
     return (
         <>

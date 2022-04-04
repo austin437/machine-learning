@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { useParseCsvFile } from "../../../../helpers";
 
-function useSideEffects(state, dispatch) {
+function useActions(state, dispatch) {
     const { headers, rows } = useParseCsvFile(state.fileInput);
 
     const setCsvHeaders = useCallback(() => {
@@ -21,4 +21,4 @@ function useSideEffects(state, dispatch) {
     }, [setCsvData]);
 }
 
-export { useSideEffects };
+export { useActions };

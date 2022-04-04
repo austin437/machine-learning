@@ -11,7 +11,7 @@ TODO
     -   Column simply calculates the average mean value for each column
     -   It will help when user is predicting values
 
-    -   Add test for useSideEffects
+    -   Add test for useActions
 
 -   Convert styles to StyleSheet (material-ui)
 

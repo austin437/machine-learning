@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from "react";
 
-const useSideEffects = (state) => {
+const useActions = (state) => {
     const extractColumnValues = useCallback(
         (indexes) => {
             return state.data.rows.map((arr) => {
@@ -33,4 +33,4 @@ const useSideEffects = (state) => {
     return { initialFeatures, initialLabels };
 };
 
-export { useSideEffects };
+export { useActions };

@@ -4,13 +4,13 @@ import classes from "./styles.module.css";
 import shuffleSeed from "shuffle-seed";
 import _ from "lodash";
 
-import { LinearRegression, useSideEffects } from "./lib";
+import { LinearRegression, useActions } from "./lib";
 
 const ProcessData = () => {
     const { state } = useLocation();
     console.log(state);
     const [output, setOutput] = useState("{}");
-    const { initialFeatures, initialLabels } = useSideEffects(state);
+    const { initialFeatures, initialLabels } = useActions(state);
 
     console.log("features", initialFeatures);
     console.log("labels", initialLabels);

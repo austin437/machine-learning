@@ -15,13 +15,13 @@ import {
     FormControl,
 } from "@mui/material";
 
-import { initialState, reducer, useSideEffects } from "./lib";
+import { initialState, reducer, useActions } from "./lib";
 import classes from "./styles.module.css";
 
 const LoadOptions = () => {
     const { state: data } = useLocation();
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { handleSubmit } = useSideEffects();
+    const { handleSubmit } = useActions();
 
     return (
         <>

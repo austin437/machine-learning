@@ -1,4 +1,4 @@
 import { LinearRegression } from "./linear-regression";
-import { useSideEffects } from "./useSideEffects";
+import { useActions } from "./useActions";
 
-export { LinearRegression, useSideEffects };
+export { LinearRegression, useActions };
