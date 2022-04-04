@@ -1,25 +1,14 @@
 import { tensor, zeros, ones, moments } from "@tensorflow/tfjs";
-import _ from "lodash";
 
 class LinearRegression {
-    constructor(features, labels, options, setOutput) {
+    constructor(features, labels, options) {
         this.features = this.processFeatures(features);
         this.labels = tensor(labels);
         this.mseHistory = [];
 
         //modify to use this.options = {learningRate: 0.1, someDefaultVal: 3.4, ...options};
         this.options = Object.assign({ learningRate: 0.1, iterations: 1000, batchSize: 10 }, options);
-        this.setOutput = setOutput;
         this.weights = zeros([this.features.shape[1], 1]);
-
-        this.output = "";
-        this.writeOutput(`Features: ${this.features}`);
-        this.writeOutput(`Labels: ${this.labels}`);
-    }
-
-    writeOutput(str) {
-        this.output += "\n\n" + str;
-        this.setOutput(this.output);
     }
 
     gradientDescent(features, labels) {
@@ -63,9 +52,6 @@ class LinearRegression {
         const tot = testLabels.sub(testLabels.mean()).pow(2).sum().arraySync();
 
         const r2 = 1 - res / tot;
-
-        this.writeOutput(`R2: ${r2}`);
-        this.writeOutput(`Weights: ${this.weights}`);
 
         return r2;
     }

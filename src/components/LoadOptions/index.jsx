@@ -60,14 +60,21 @@ const LoadOptions = () => {
                             <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                                 <TableCell sx={{ textTransform: "uppercase" }}>Split Test</TableCell>
                                 <TableCell>
-                                    <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
+                                    <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                                         <Input
-                                            className={classes.fileInput}
-                                            type="file"
-                                            onChange={(event) =>
-                                                dispatch({ type: "setFileInput", payload: event.target.files[0] })
+                                            sx={{ minWidth: 300 }}
+                                            type="number"
+                                            inputProps={{
+                                                step: "1",
+                                                min: 0,
+                                                max: 1000,
+                                            }}
+                                            required
+                                            onChange={(e) =>
+                                                dispatch({ type: "setSplitTest", payload: e.target.value })
                                             }
-                                            name="csvFile"
+                                            value={state.splitTest}
+                                            aria-describedby="split test"
                                         />
                                     </FormControl>
                                 </TableCell>

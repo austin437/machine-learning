@@ -15,6 +15,10 @@ TODO
 
 -   Convert styles to StyleSheet (material-ui)
 
+-   Change to project machine learning.
+-   Create front page with option for gradient descent
+-   Load to GH pages.
+
 DONE
 
 -   Move logic into component

@@ -1,15 +1,20 @@
-.pre {
-    background-color: #ddd;
-    min-height: 300px; 
-    max-height: 600px;
-    overflow-y: scroll;
-    min-width: 600px;
-    border-radius: 5px;
-    padding: 10px;
-    margin-top: 10px;
-    box-shadow: inset 0 0 0 1px black;
-}
-
 .capitalize {
     text-transform: capitalize;
+}
+
+.buttonContainer {
+    text-align: center;
+}
+
+.alert {
+    min-width: 50%;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.highlight {
+    border: 3px solid purple;
+    padding: 5px;
+    border-radius: 5px;
 }
