@@ -1,21 +1,12 @@
-import React, { useState, useCallback, useReducer } from "react";
+import React, { useCallback, useReducer } from "react";
 import { useLocation, Link } from "react-router-dom";
-import classes from "./styles.module.css";
 import shuffleSeed from "shuffle-seed";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Alert from "@mui/material/Alert";
-import Paper from "@mui/material/Paper";
-import { Input } from "@mui/material";
+import { Table, TableBody, TableRow, TableHead, TableCell, TableContainer, Input, Paper } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import _ from "lodash";
 
-import { reducer, initialState } from "./lib";
-import { LinearRegression, useActions } from "./lib";
+import classes from "./styles.module.css";
+import { reducer, initialState, LinearRegression, useActions, AlertContainer } from "./lib";
 
 const ProcessData = () => {
     const { state } = useLocation();
@@ -116,21 +107,11 @@ const ProcessData = () => {
                 </div>
             </form>
             {reducerState.r2 != null && reducerState.labelPrediction != null ? (
-                <>
-                    <Alert className={classes.alert} severity="info">
-                        <strong>
-                            Your R2 value is:&nbsp;
-                            <span className={classes.highlight}>{reducerState.r2.toFixed(2)}</span>
-                        </strong>
-                    </Alert>
-                    <Alert className={classes.alert} severity="success">
-                        <strong>
-                            Your predicted value for&nbsp;
-                            <span className={classes.capitalize}>{state.options.labels.join(", ")}</span> is:&nbsp;
-                            <span className={classes.highlight}>{reducerState.labelPrediction.toFixed(2)}</span>
-                        </strong>
-                    </Alert>
-                </>
+                <AlertContainer
+                    r2={reducerState.r2}
+                    labels={state.options.labels}
+                    labelPrediction={reducerState.labelPrediction}
+                />
             ) : (
                 ""
             )}

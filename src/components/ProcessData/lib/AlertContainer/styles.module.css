@@ -1,0 +1,12 @@
+.alert {
+    min-width: 50%;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.highlight {
+    border: 3px solid purple;
+    padding: 5px;
+    border-radius: 5px;
+}
