@@ -1,21 +1,34 @@
-import React, { useCallback, useReducer } from "react";
+import React, { useReducer } from "react";
 import { useLocation, Link } from "react-router-dom";
-import shuffleSeed from "shuffle-seed";
 import { Table, TableBody, TableRow, TableHead, TableCell, TableContainer, Input, Paper } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import _ from "lodash";
 
 import classes from "./styles.module.css";
-import { reducer, initialState, LinearRegression, useActions, AlertContainer } from "./lib";
+import { reducer, initialState, useActions, useLinearRegression, AlertContainer } from "./lib";
 
 const ProcessData = () => {
     const { state } = useLocation();
     const { initialFeatures, initialLabels, featurePredictionData, initReducer } = useActions(state);
     const [reducerState, dispatch] = useReducer(reducer, initialState, initReducer);
+    const { calculatePrediction } = useLinearRegression(
+        reducerState.featureInputs,
+        dispatch,
+        initialFeatures,
+        initialLabels,
+        state.options
+    );
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        calculatePrediction();
+
+        try {
+            dispatch({ type: "setLoading", payload: true });
+            calculatePrediction();
+        } catch (e) {
+            console.log(e);
+        } finally {
+            dispatch({ type: "setLoading", payload: false });
+        }
     };
 
     const onChange = (i, event) => {
@@ -23,42 +36,6 @@ const ProcessData = () => {
         updatedInputs[i] = parseFloat(event.target.value);
         dispatch({ type: "setFeatureInputs", payload: updatedInputs });
     };
-
-    const calculatePrediction = useCallback(() => {
-        try {
-            dispatch({ type: "setLoading", payload: true });
-            let features, labels, testFeatures, testLabels;
-            features = initialFeatures;
-            labels = initialLabels;
-            const { learningRate, iterations, batchSize } = state.options;
-
-            if (state.options.shuffle) {
-                features = shuffleSeed.shuffle(features, "phrase");
-                labels = shuffleSeed.shuffle(labels, "phrase");
-            }
-
-            const regression = new LinearRegression(features, labels, { learningRate, iterations, batchSize });
-            if (state.options.splitTest) {
-                const trainSize = _.isNumber(state.options.splitTest)
-                    ? state.options.splitTest
-                    : Math.floor(features.length / 2);
-                features = features.slice(trainSize);
-                labels = labels.slice(trainSize);
-                testFeatures = features.slice(0, trainSize);
-                testLabels = labels.slice(0, trainSize);
-                dispatch({ type: "setR2", payload: regression.test(testFeatures, testLabels) });
-            }
-
-            regression.train();
-
-            const predictedValue = regression.predict([reducerState.featureInputs]).arraySync()[0][0];
-            dispatch({ type: "setLabelPrediction", payload: predictedValue });
-        } catch (e) {
-            console.log(e);
-        } finally {
-            dispatch({ type: "setLoading", payload: false });
-        }
-    }, [reducerState.featureInputs, initialFeatures, initialLabels, state.options]);
 
     return (
         <>
