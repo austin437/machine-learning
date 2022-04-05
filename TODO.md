@@ -3,7 +3,6 @@ TODO
 -   ProcessData:
 
     - Move Alerts to their own component
-    - Use useReducer instead of useState
     - Move calculatePrediction to useActions
 
 
@@ -39,3 +38,4 @@ DONE
 -   It will help when user is predicting values
 
 -   Add test for useActions
+    - Use useReducer instead of useState

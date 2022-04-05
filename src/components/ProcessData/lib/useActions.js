@@ -23,12 +23,6 @@ const useActions = (state) => {
         return extractColumnValues(featureIndexes);
     }, [extractColumnValues, featureIndexes]);
 
-    const featurePredictionData = useMemo(() => {
-        return indexedHeaders
-            .filter((v) => v.isFeature)
-            .map((v, i) => ({ ...v, average: parseFloat(_.mean(initialFeatures.map((w) => w[i])).toFixed(2)) }));
-    }, [indexedHeaders, initialFeatures]);
-
     const labelIndexes = useMemo(() => {
         return indexedHeaders.filter((x) => state.options.labels.includes(x.fieldName)).map((v) => v.index);
     }, [indexedHeaders, state.options.labels]);
@@ -37,7 +31,17 @@ const useActions = (state) => {
         return extractColumnValues(labelIndexes);
     }, [extractColumnValues, labelIndexes]);
 
-    return { initialFeatures, initialLabels, featurePredictionData };
+    const featurePredictionData = useMemo(() => {
+        return indexedHeaders
+            .filter((v) => v.isFeature)
+            .map((v, i) => ({ ...v, average: parseFloat(_.mean(initialFeatures.map((w) => w[i])).toFixed(2)) }));
+    }, [indexedHeaders, initialFeatures]);
+
+    const initReducer = useCallback(() => {
+        return { featureInputs: featurePredictionData.map((v) => v.average) };
+    }, [featurePredictionData]);
+
+    return { initialFeatures, initialLabels, featurePredictionData, initReducer };
 };
 
 export { useActions };
