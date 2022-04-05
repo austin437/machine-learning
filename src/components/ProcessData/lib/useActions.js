@@ -37,11 +37,7 @@ const useActions = (state) => {
             .map((v, i) => ({ ...v, average: parseFloat(_.mean(initialFeatures.map((w) => w[i])).toFixed(2)) }));
     }, [indexedHeaders, initialFeatures]);
 
-    const initReducer = useCallback(() => {
-        return { featureInputs: featurePredictionData.map((v) => v.average) };
-    }, [featurePredictionData]);
-
-    return { initialFeatures, initialLabels, featurePredictionData, initReducer };
+    return { initialFeatures, initialLabels, featurePredictionData };
 };
 
 export { useActions };

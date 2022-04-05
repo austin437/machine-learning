@@ -1,16 +1,9 @@
 TODO
 
--   ProcessData:
-
-    - Move Alerts to their own component
-    - Move calculatePrediction to useActions
-
-
--   Convert styles to StyleSheet (material-ui)
-
 -   Change to project machine learning.
 -   Create front page with option for gradient descent
 -   Load to GH pages.
+-   Convert styles to StyleSheet (material-ui)
 
 DONE
 
@@ -39,3 +32,7 @@ DONE
 
 -   Add test for useActions
     - Use useReducer instead of useState
+    -   ProcessData:
+
+    - Move Alerts to their own component
+    - Move calculatePrediction to useActions

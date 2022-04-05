@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Table, TableBody, TableRow, TableHead, TableCell, TableContainer, Input, Paper } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -8,8 +8,8 @@ import { reducer, initialState, useActions, useLinearRegression, AlertContainer 
 
 const ProcessData = () => {
     const { state } = useLocation();
-    const { initialFeatures, initialLabels, featurePredictionData, initReducer } = useActions(state);
-    const [reducerState, dispatch] = useReducer(reducer, initialState, initReducer);
+    const [reducerState, dispatch] = useReducer(reducer, state, initialState);
+    const { initialFeatures, initialLabels, featurePredictionData } = useActions(state);
     const { calculatePrediction } = useLinearRegression(
         reducerState.featureInputs,
         dispatch,
@@ -17,6 +17,16 @@ const ProcessData = () => {
         initialLabels,
         state.options
     );
+
+    useEffect(() => {
+        dispatch({ type: "setFeatureInputs", payload: featurePredictionData.map((v) => v.average) });
+    }, [featurePredictionData]);
+
+    const onInputChange = (i, event) => {
+        const updatedInputs = [...reducerState.featureInputs];
+        updatedInputs[i] = parseFloat(event.target.value);
+        dispatch({ type: "setFeatureInputs", payload: updatedInputs });
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -29,12 +39,6 @@ const ProcessData = () => {
         } finally {
             dispatch({ type: "setLoading", payload: false });
         }
-    };
-
-    const onChange = (i, event) => {
-        const updatedInputs = [...reducerState.featureInputs];
-        updatedInputs[i] = parseFloat(event.target.value);
-        dispatch({ type: "setFeatureInputs", payload: updatedInputs });
     };
 
     return (
@@ -68,7 +72,7 @@ const ProcessData = () => {
                                             value={reducerState.featureInputs[i]}
                                             placeholder="Enter Number"
                                             required
-                                            onChange={onChange.bind(this, i)}
+                                            onChange={onInputChange.bind(this, i)}
                                             aria-describedby="feature-value"
                                         />
                                     </TableCell>
