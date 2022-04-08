@@ -1,9 +1,9 @@
 TODO
 
--   Change to project machine learning.
 -   Create front page with option for gradient descent
 -   Load to GH pages.
 -   Convert styles to StyleSheet (material-ui)
+-   Update Upload button to look like mui buttons
 
 DONE
 
@@ -36,3 +36,4 @@ DONE
 
 -   Move Alerts to their own component
 -   Move calculatePrediction to useActions
+-   Change to project machine learning.
