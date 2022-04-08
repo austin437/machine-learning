@@ -1,6 +1,6 @@
 {
-    "name": "starter-project",
-    "homepage": "https://austin437.github.io/starter-project/",
+    "name": "machine-learning",
+    "homepage": "https://austin437.github.io/machine-learning/",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
