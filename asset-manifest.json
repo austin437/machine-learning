@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/starter-project/static/css/main.f46ce784.css",
-    "main.js": "/starter-project/static/js/main.01ae9502.js",
-    "static/js/787.d54456cf.chunk.js": "/starter-project/static/js/787.d54456cf.chunk.js",
-    "index.html": "/starter-project/index.html",
-    "main.f46ce784.css.map": "/starter-project/static/css/main.f46ce784.css.map",
-    "main.01ae9502.js.map": "/starter-project/static/js/main.01ae9502.js.map",
-    "787.d54456cf.chunk.js.map": "/starter-project/static/js/787.d54456cf.chunk.js.map"
+    "main.css": "/machine-learning/static/css/main.fa69b288.css",
+    "main.js": "/machine-learning/static/js/main.401bbd67.js",
+    "static/js/787.c98ae61b.chunk.js": "/machine-learning/static/js/787.c98ae61b.chunk.js",
+    "index.html": "/machine-learning/index.html",
+    "main.fa69b288.css.map": "/machine-learning/static/css/main.fa69b288.css.map",
+    "main.401bbd67.js.map": "/machine-learning/static/js/main.401bbd67.js.map",
+    "787.c98ae61b.chunk.js.map": "/machine-learning/static/js/787.c98ae61b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f46ce784.css",
-    "static/js/main.01ae9502.js"
+    "static/css/main.fa69b288.css",
+    "static/js/main.401bbd67.js"
   ]
 }
