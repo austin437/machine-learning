@@ -31,8 +31,8 @@ DONE
 -   It will help when user is predicting values
 
 -   Add test for useActions
-    - Use useReducer instead of useState
-    -   ProcessData:
+-   Use useReducer instead of useState
+-   ProcessData:
 
-    - Move Alerts to their own component
-    - Move calculatePrediction to useActions
+-   Move Alerts to their own component
+-   Move calculatePrediction to useActions
