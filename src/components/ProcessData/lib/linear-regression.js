@@ -32,7 +32,7 @@ class LinearRegression {
                 this.gradientDescent(featureSlice, labelSlice);
             }
 
-            this.recordMSE();
+            this.recordCost();
             this.updateLearningRate();
         }
     }
@@ -73,7 +73,7 @@ class LinearRegression {
         return features.sub(this.mean).div(this.variance.pow(0.5));
     }
 
-    recordMSE() {
+    recordCost() {
         const mse = this.features
             .matMul(this.weights)
             .sub(this.labels)

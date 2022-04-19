@@ -1,5 +1,8 @@
 TODO
 
+-   Create base class for regression.
+-   Move same functions into base class
+-   Sub-class from there for various gradient descent functions
 -   Create front page with option for gradient descent
 -   Load to GH pages.
 -   Convert styles to StyleSheet (material-ui)
