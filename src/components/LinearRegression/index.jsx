@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { CustomStepper } from "../Stepper";
+import React, { useReducer } from "react";
+import { CustomStepper } from "../CustomStepper";
+import { initialState, reducer } from "./lib";
 
 const LinearRegression = () => {
-    const [activeStep, setActiveStep] = useState(0);
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     return (
         <>
-            <CustomStepper activeStep={activeStep} setActiveStep={setActiveStep} />
-            <p>Active Step: {activeStep}</p>
+            <CustomStepper parentState={state} parentDispatch={dispatch} />
+            <p>Active Step: {state.activeStep}</p>
         </>
     );
 };

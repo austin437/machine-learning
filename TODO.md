@@ -1,5 +1,6 @@
 TODO
 
+-   Create disableNext button for linear-regression next
 -   Create base class for regression.
 -   Move same functions into base class
 -   Sub-class from there for various gradient descent functions
