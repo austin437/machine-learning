@@ -1,10 +1,12 @@
 import _ from "lodash";
 
 function reducer(state, action) {
-
     const newState = _.cloneDeep(state);
+    const newOptions = newState.options;
 
     switch (action.type) {
+        case "resetState": 
+            return {...action.payload};
         case "incrementActiveStep":
             return { ...newState, activeStep: state.activeStep + 1 };
         case "decrementActiveStep":
@@ -20,17 +22,31 @@ function reducer(state, action) {
         case "setCsvData":
             return { ...newState, csvData: action.payload };
         case "setPredictionLabel":
-            return { ...state, labels: [action.payload] };
+            newOptions.labels = [action.payload];
+            return { ...newState, options: newOptions };
         case "setSplitTest":
-            return { ...state, splitTest: action.payload };
+            newOptions.splitTest = action.payload;
+            return { ...newState, options: newOptions };
         case "setShuffle":
-            return { ...state, shuffle: action.payload };
+            newOptions.shuffle = action.payload;
+            return { ...newState, options: newOptions };
         case "setLearningRate":
-            return { ...state, learningRate: action.payload };
+            newOptions.learningRate = action.payload;
+            return { ...newState, options: newOptions };
         case "setIterations":
-            return { ...state, iterations: action.payload };
+            newOptions.iterations = action.payload;
+            return { ...newState, options: newOptions };
         case "setBatchSize":
-            return { ...state, batchSize: action.payload };
+            newOptions.batchSize = action.payload;
+            return { ...newState, options: newOptions };
+        case "setFeatureInputs":
+            return { ...newState, featureInputs: action.payload };
+        case "setR2":
+            return { ...newState, r2: action.payload };
+        case "setLabelPrediction":
+            return { ...newState, labelPrediction: action.payload };
+        case "setLoading":
+            return { ...newState, loading: action.payload };
         default:
             return new Error();
     }

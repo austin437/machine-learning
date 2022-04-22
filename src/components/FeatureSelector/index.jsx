@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -15,7 +14,7 @@ import _ from "lodash";
 import classes from "./styles.module.css";
 
 const FeatureSelector = ({ linRegState, linRegDispatch, ...props }) => {
-    //const navigate = useNavigate();
+
     const [dataValues, setDataValues] = useState([]);
 
     const headers = useMemo(
@@ -36,7 +35,6 @@ const FeatureSelector = ({ linRegState, linRegDispatch, ...props }) => {
         event.preventDefault();
         linRegDispatch({ type: "setFeatureSelectorHeaders", payload: dataValues });
         linRegDispatch({ type: "incrementActiveStep" });
-        /* navigate("/load-options", { state: { headers: dataValues, rows: data.rows } }); */
     };
 
     const handleInputChange = (row) => {

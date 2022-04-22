@@ -1,5 +1,5 @@
-import React, { useReducer } from "react";
-import { useLocation, Link } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import {
     Select,
     MenuItem,
@@ -15,15 +15,15 @@ import {
     FormControl,
 } from "@mui/material";
 
-import { initialState, reducer, useActions } from "./lib";
 import classes from "./styles.module.css";
 
 const LoadOptions = ({ linRegState, linRegDispatch, ...props }) => {
-    // const { state: data } = useLocation();
-    // const [state, dispatch] = useReducer(reducer, initialState);
     const handleSubmit = () => {
+        linRegDispatch({
+            type: "setFeatureInputs",
+            payload: linRegState.featureSelectorHeaders.filter((x) => x.isFeature).map((x) => 0),
+        });
         linRegDispatch({ type: "incrementActiveStep" });
-        //{ state: { options: state, data: data }
     };
 
     return (
@@ -40,10 +40,10 @@ const LoadOptions = ({ linRegState, linRegDispatch, ...props }) => {
                                         <Select
                                             required
                                             sx={{ minWidth: 300 }}
-                                            value={linRegState.labels[0]}
-                                            onChange={(e) =>
-                                                linRegDispatch({ type: "setPredictionLabel", payload: e.target.value })
-                                            }
+                                            value={linRegState.options.labels[0]}
+                                            onChange={(e) => {
+                                                linRegDispatch({ type: "setPredictionLabel", payload: e.target.value });
+                                            }}
                                         >
                                             {linRegState.featureSelectorHeaders
                                                 .filter((x) => !x.isFeature && x.isNumeric)
@@ -76,7 +76,7 @@ const LoadOptions = ({ linRegState, linRegDispatch, ...props }) => {
                                             onChange={(e) =>
                                                 linRegDispatch({ type: "setSplitTest", payload: e.target.value })
                                             }
-                                            value={linRegState.splitTest}
+                                            value={linRegState.options.splitTest}
                                             aria-describedby="split test"
                                         />
                                     </FormControl>
@@ -89,7 +89,7 @@ const LoadOptions = ({ linRegState, linRegDispatch, ...props }) => {
                                         onChange={(e) =>
                                             linRegDispatch({ type: "setShuffle", payload: e.target.checked })
                                         }
-                                        checked={linRegState.shuffle}
+                                        checked={linRegState.options.shuffle}
                                     />
                                 </TableCell>
                             </TableRow>
@@ -109,7 +109,7 @@ const LoadOptions = ({ linRegState, linRegDispatch, ...props }) => {
                                             onChange={(e) =>
                                                 linRegDispatch({ type: "setLearningRate", payload: e.target.value })
                                             }
-                                            value={linRegState.learningRate}
+                                            value={linRegState.options.learningRate}
                                             aria-describedby="learning rate"
                                         />
                                     </FormControl>
@@ -130,7 +130,7 @@ const LoadOptions = ({ linRegState, linRegDispatch, ...props }) => {
                                             onChange={(e) =>
                                                 linRegDispatch({ type: "setIterations", payload: e.target.value })
                                             }
-                                            value={linRegState.iterations}
+                                            value={linRegState.options.iterations}
                                             aria-describedby="iterations"
                                         />
                                     </FormControl>
@@ -151,7 +151,7 @@ const LoadOptions = ({ linRegState, linRegDispatch, ...props }) => {
                                             onChange={(e) =>
                                                 linRegDispatch({ type: "setBatchSize", payload: e.target.value })
                                             }
-                                            value={linRegState.batchSize}
+                                            value={linRegState.options.batchSize}
                                             aria-describedby="batch size"
                                         />
                                     </FormControl>

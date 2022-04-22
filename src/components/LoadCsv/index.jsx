@@ -1,6 +1,6 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { Input } from "@mui/material";
-import { reducer, useActions, initialState } from "./lib/reducer";
+import { useActions } from "./lib/useActions";
 import { FeatureSelector } from "../";
 import classes from "./styles.module.css";
 
@@ -23,12 +23,7 @@ const LoadCsv = ({ linRegState, linRegDispatch, ...props }) => {
                     />
                 </label>
             </form>
-            {/* {linRegState.fileInput ? <FeatureSelector data={{ headers: linRegState.csvHeaders, rows: linRegState.csvData }} /> : ""} */}
-            {linRegState.fileInput ? (
-                <FeatureSelector linRegState={linRegState} linRegDispatch={linRegDispatch} />
-            ) : (
-                ""
-            )}
+            {linRegState.fileInput ? <FeatureSelector linRegState={linRegState} linRegDispatch={linRegDispatch} /> : ""}
         </>
     );
 };

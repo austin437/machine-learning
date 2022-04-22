@@ -4,16 +4,16 @@ import _ from "lodash";
 const useActions = (state) => {
     const extractColumnValues = useCallback(
         (indexes) => {
-            return state.data.rows.map((arr) => {
+            return state.csvData.map((arr) => {
                 return arr.filter((v, i) => indexes.includes(i)).map(parseFloat);
             });
         },
-        [state.data.rows]
+        [state.csvData]
     );
 
     const indexedHeaders = useMemo(() => {
-        return state.data.headers.map((v, i) => ({ ...v, index: i }));
-    }, [state.data.headers]);
+        return state.featureSelectorHeaders.map((v, i) => ({ ...v, index: i }));
+    }, [state.featureSelectorHeaders]);
 
     const featureIndexes = useMemo(() => {
         return indexedHeaders.filter((x) => x.isFeature).map((v) => v.index);

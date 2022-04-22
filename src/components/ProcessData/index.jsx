@@ -1,43 +1,41 @@
-import React, { useEffect, useReducer } from "react";
-import { useLocation, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Table, TableBody, TableRow, TableHead, TableCell, TableContainer, Input, Paper } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 import classes from "./styles.module.css";
-import { reducer, initialState, useActions, useLinearRegression, AlertContainer } from "./lib";
+import { useActions, useLinearRegression, AlertContainer } from "./lib";
 
-const ProcessData = () => {
-    const { state } = useLocation();
-    const [reducerState, dispatch] = useReducer(reducer, state, initialState);
-    const { initialFeatures, initialLabels, featurePredictionData } = useActions(state);
+const ProcessData = ({ linRegState, linRegDispatch, ...props }) => {
+    const { initialFeatures, initialLabels, featurePredictionData } = useActions(linRegState);
     const { calculatePrediction } = useLinearRegression(
-        reducerState.featureInputs,
-        dispatch,
+        linRegState.featureInputs,
+        linRegDispatch,
         initialFeatures,
         initialLabels,
-        state.options
+        linRegState.options
     );
 
     useEffect(() => {
-        dispatch({ type: "setFeatureInputs", payload: featurePredictionData.map((v) => v.average) });
-    }, [featurePredictionData]);
+        linRegDispatch({ type: "setFeatureInputs", payload: featurePredictionData.map((v) => v.average) });
+    }, []);
 
     const onInputChange = (i, event) => {
-        const updatedInputs = [...reducerState.featureInputs];
+        const updatedInputs = [...linRegState.featureInputs];
         updatedInputs[i] = parseFloat(event.target.value);
-        dispatch({ type: "setFeatureInputs", payload: updatedInputs });
+        linRegDispatch({ type: "setFeatureInputs", payload: updatedInputs });
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
         try {
-            dispatch({ type: "setLoading", payload: true });
+            linRegDispatch({ type: "setLoading", payload: true });
             calculatePrediction();
         } catch (e) {
             console.log(e);
         } finally {
-            dispatch({ type: "setLoading", payload: false });
+            linRegDispatch({ type: "setLoading", payload: false });
         }
     };
 
@@ -69,7 +67,7 @@ const ProcessData = () => {
                                                 step: "0.01",
                                                 min: 0,
                                             }}
-                                            value={reducerState.featureInputs[i]}
+                                            value={linRegState.featureInputs[i]}
                                             placeholder="Enter Number"
                                             required
                                             onChange={onInputChange.bind(this, i)}
@@ -82,16 +80,17 @@ const ProcessData = () => {
                     </Table>
                 </TableContainer>
                 <div className={classes.buttonContainer}>
-                    <LoadingButton loading={reducerState.loading} type="submit" variant="contained">
-                        Calculate &nbsp; <span className={classes.capitalize}>{state.options.labels.join(", ")}</span>
+                    <LoadingButton loading={linRegState.loading} type="submit" variant="contained">
+                        Calculate &nbsp;{" "}
+                        <span className={classes.capitalize}>{linRegState.options.labels.join(", ")}</span>
                     </LoadingButton>
                 </div>
             </form>
-            {reducerState.r2 != null && reducerState.labelPrediction != null ? (
+            {linRegState.r2 != null && linRegState.labelPrediction != null ? (
                 <AlertContainer
-                    r2={reducerState.r2}
-                    labels={state.options.labels}
-                    labelPrediction={reducerState.labelPrediction}
+                    r2={linRegState.r2}
+                    labels={linRegState.options.labels}
+                    labelPrediction={linRegState.labelPrediction}
                 />
             ) : (
                 ""

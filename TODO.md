@@ -1,9 +1,7 @@
 TODO
 
+-   Amend end of stepper (add extra component) - then reset
 -   Create disableNext button for linear-regression next
--   Use Stepper as navigation
--   Change to use single state object from linear regression
--   Remove unnecessary files
 -   Update tests appropriately
 
 
@@ -47,3 +45,6 @@ DONE
 -   Move Alerts to their own component
 -   Move calculatePrediction to useActions
 -   Change to project machine learning.
+-   Use Stepper as navigation
+-   Change to use single state object from linear regression
+-   Remove unnecessary files

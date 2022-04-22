@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { useParseCsvFile } from "../../../../helpers";
+import { useParseCsvFile } from "../../../helpers";
 
 function useActions(state, dispatch) {
     const { headers, rows } = useParseCsvFile(state.fileInput);
