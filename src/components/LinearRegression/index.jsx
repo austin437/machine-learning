@@ -11,7 +11,7 @@ const LinearRegression = () => {
 
     switch (state.activeStep) {        
         case 1:
-            component = <LoadCsv />;
+            component = <LoadCsv linRegState={state} linRegDispatch={dispatch} />;
             break;
         case 0:
         default:
@@ -20,7 +20,7 @@ const LinearRegression = () => {
 
     return (
         <>
-            <CustomStepper LRState={state} LRDispatch={dispatch} />
+            <CustomStepper linRegState={state} linRegDispatch={dispatch} />
             <p>Active Step: {state.activeStep}</p>
             <br/>
             {component}

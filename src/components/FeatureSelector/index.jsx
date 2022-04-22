@@ -14,18 +14,18 @@ import _ from "lodash";
 
 import classes from "./styles.module.css";
 
-const FeatureSelector = ({ data, ...props }) => {
+const FeatureSelector = ({ linRegState, linRegDispatch, ...props }) => {
     const navigate = useNavigate();
     const [dataValues, setDataValues] = useState([]);
 
     const headers = useMemo(
         () =>
-            data.headers.map((v, i) => ({
+            linRegState.csvHeaders.map((v, i) => ({
                 fieldName: v,
-                isNumeric: !isNaN(parseInt(data.rows[0][i])),
+                isNumeric: !isNaN(parseInt(linRegState.csvData[0][i])),
                 isFeature: false,
             })),
-        [data]
+        [linRegState.csvHeaders, linRegState.csvData]
     );
 
     useEffect(() => {
@@ -34,7 +34,9 @@ const FeatureSelector = ({ data, ...props }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        navigate("/load-options", { state: { headers: dataValues, rows: data.rows } });
+        linRegDispatch({ type: "setFeatureSelectorHeaders", payload: dataValues });
+        linRegDispatch({ type: "incrementActiveStep" });
+        /* navigate("/load-options", { state: { headers: dataValues, rows: data.rows } }); */
     };
 
     const handleInputChange = (row) => {

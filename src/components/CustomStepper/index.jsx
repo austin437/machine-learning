@@ -8,31 +8,31 @@ import Typography from "@mui/material/Typography";
 
 const steps = ["Instructions", "Load CSV", "Load Options", "Process Data"];
 
-const CustomStepper = ({ LRState, LRDispatch, ...props }) => {
+const CustomStepper = ({ linRegState, linRegDispatch, ...props }) => {
     const handleNext = () => {
-        LRDispatch({ type: "incrementActiveStep", payload: LRState.activeStep + 1 });
+        linRegDispatch({ type: "incrementActiveStep", payload: linRegState.activeStep + 1 });
     };
 
     const handleBack = () => {
-        LRDispatch({ type: "decrementActiveStep", payload: LRState.activeStep - 1 });
+        linRegDispatch({ type: "decrementActiveStep", payload: linRegState.activeStep - 1 });
     };
 
     const handleReset = () => {
-        LRDispatch({ type: "resetActiveStep", payload: 0 });
+        linRegDispatch({ type: "resetActiveStep", payload: 0 });
     };
 
     return (
         <Box sx={{ width: "100%" }}>
-            <Stepper activeStep={LRState.activeStep}>
+            <Stepper activeStep={linRegState.activeStep}>
                 {steps.map((step, index) => {
                     return (
-                        <Step key={step} completed={LRState.activeStep > index}>
+                        <Step key={step} completed={linRegState.activeStep > index}>
                             <StepLabel optional={false}>{step}</StepLabel>
                         </Step>
                     );
                 })}
             </Stepper>
-            {LRState.activeStep === steps.length ? (
+            {linRegState.activeStep === steps.length ? (
                 <React.Fragment>
                     <Typography sx={{ mt: 2, mb: 1 }}>All state completed - you&apos;re finished</Typography>
                     <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
@@ -42,11 +42,11 @@ const CustomStepper = ({ LRState, LRDispatch, ...props }) => {
                 </React.Fragment>
             ) : (
                 <React.Fragment>
-                    <Typography sx={{ mt: 2, mb: 1 }}>Step {LRState.activeStep + 1}</Typography>
+                    <Typography sx={{ mt: 2, mb: 1 }}>Step {linRegState.activeStep + 1}</Typography>
                     <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                         <Button
                             color="inherit"
-                            disabled={LRState.activeStep === 0}
+                            disabled={linRegState.activeStep === 0}
                             onClick={handleBack}
                             sx={{ mr: 1 }}
                         >
@@ -54,7 +54,7 @@ const CustomStepper = ({ LRState, LRDispatch, ...props }) => {
                         </Button>
                         <Box sx={{ flex: "1 1 auto" }} />
                         <Button onClick={handleNext}>
-                            {LRState.activeStep === steps.length - 1 ? "Finish" : "Next"}
+                            {linRegState.activeStep === steps.length - 1 ? "Finish" : "Next"}
                         </Button>
                     </Box>
                 </React.Fragment>
