@@ -15,7 +15,7 @@ import _ from "lodash";
 import classes from "./styles.module.css";
 
 const FeatureSelector = ({ linRegState, linRegDispatch, ...props }) => {
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     const [dataValues, setDataValues] = useState([]);
 
     const headers = useMemo(

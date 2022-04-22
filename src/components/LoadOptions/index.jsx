@@ -18,15 +18,18 @@ import {
 import { initialState, reducer, useActions } from "./lib";
 import classes from "./styles.module.css";
 
-const LoadOptions = () => {
-    const { state: data } = useLocation();
-    const [state, dispatch] = useReducer(reducer, initialState);
-    const { handleSubmit } = useActions();
+const LoadOptions = ({ linRegState, linRegDispatch, ...props }) => {
+    // const { state: data } = useLocation();
+    // const [state, dispatch] = useReducer(reducer, initialState);
+    const handleSubmit = () => {
+        linRegDispatch({ type: "incrementActiveStep" });
+        //{ state: { options: state, data: data }
+    };
 
     return (
         <>
             <h2>Choose Options</h2>
-            <form className={classes.form} onSubmit={handleSubmit({ state: { options: state, data: data } })}>
+            <form className={classes.form} onSubmit={handleSubmit}>
                 <TableContainer sx={{ marginBottom: 2 }} component={Paper}>
                     <Table sx={{ minWidth: 650 }} size="small" aria-label="Feature table">
                         <TableBody>
@@ -37,12 +40,12 @@ const LoadOptions = () => {
                                         <Select
                                             required
                                             sx={{ minWidth: 300 }}
-                                            value={state.labels[0]}
+                                            value={linRegState.labels[0]}
                                             onChange={(e) =>
-                                                dispatch({ type: "setPredictionLabel", payload: e.target.value })
+                                                linRegDispatch({ type: "setPredictionLabel", payload: e.target.value })
                                             }
                                         >
-                                            {data.headers
+                                            {linRegState.featureSelectorHeaders
                                                 .filter((x) => !x.isFeature && x.isNumeric)
                                                 .map((v) => (
                                                     <MenuItem
@@ -71,9 +74,9 @@ const LoadOptions = () => {
                                             }}
                                             required
                                             onChange={(e) =>
-                                                dispatch({ type: "setSplitTest", payload: e.target.value })
+                                                linRegDispatch({ type: "setSplitTest", payload: e.target.value })
                                             }
-                                            value={state.splitTest}
+                                            value={linRegState.splitTest}
                                             aria-describedby="split test"
                                         />
                                     </FormControl>
@@ -83,8 +86,10 @@ const LoadOptions = () => {
                                 <TableCell sx={{ textTransform: "uppercase" }}>Shuffle</TableCell>
                                 <TableCell>
                                     <Checkbox
-                                        onChange={(e) => dispatch({ type: "setShuffle", payload: e.target.checked })}
-                                        checked={state.shuffle}
+                                        onChange={(e) =>
+                                            linRegDispatch({ type: "setShuffle", payload: e.target.checked })
+                                        }
+                                        checked={linRegState.shuffle}
                                     />
                                 </TableCell>
                             </TableRow>
@@ -102,9 +107,9 @@ const LoadOptions = () => {
                                             }}
                                             required
                                             onChange={(e) =>
-                                                dispatch({ type: "setLearningRate", payload: e.target.value })
+                                                linRegDispatch({ type: "setLearningRate", payload: e.target.value })
                                             }
-                                            value={state.learningRate}
+                                            value={linRegState.learningRate}
                                             aria-describedby="learning rate"
                                         />
                                     </FormControl>
@@ -123,9 +128,9 @@ const LoadOptions = () => {
                                             }}
                                             required
                                             onChange={(e) =>
-                                                dispatch({ type: "setIterations", payload: e.target.value })
+                                                linRegDispatch({ type: "setIterations", payload: e.target.value })
                                             }
-                                            value={state.iterations}
+                                            value={linRegState.iterations}
                                             aria-describedby="iterations"
                                         />
                                     </FormControl>
@@ -144,9 +149,9 @@ const LoadOptions = () => {
                                             }}
                                             required
                                             onChange={(e) =>
-                                                dispatch({ type: "setBatchSize", payload: e.target.value })
+                                                linRegDispatch({ type: "setBatchSize", payload: e.target.value })
                                             }
-                                            value={state.batchSize}
+                                            value={linRegState.batchSize}
                                             aria-describedby="batch size"
                                         />
                                     </FormControl>

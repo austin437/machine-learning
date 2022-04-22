@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import { CustomStepper } from "../CustomStepper";
 import { initialState, reducer } from "./lib";
-import { LoadCsv, Instructions } from "../../components";
+import { Instructions, LoadCsv, LoadOptions } from "../../components";
 
 
 const LinearRegression = () => {
@@ -9,9 +9,12 @@ const LinearRegression = () => {
 
     let component;
 
-    switch (state.activeStep) {        
+    switch (state.activeStep) {
         case 1:
             component = <LoadCsv linRegState={state} linRegDispatch={dispatch} />;
+            break;
+        case 2:
+            component = <LoadOptions linRegState={state} linRegDispatch={dispatch} />;
             break;
         case 0:
         default:

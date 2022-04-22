@@ -19,6 +19,18 @@ function reducer(state, action) {
             return { ...newState, featureSelectorHeaders: action.payload };
         case "setCsvData":
             return { ...newState, csvData: action.payload };
+        case "setPredictionLabel":
+            return { ...state, labels: [action.payload] };
+        case "setSplitTest":
+            return { ...state, splitTest: action.payload };
+        case "setShuffle":
+            return { ...state, shuffle: action.payload };
+        case "setLearningRate":
+            return { ...state, learningRate: action.payload };
+        case "setIterations":
+            return { ...state, iterations: action.payload };
+        case "setBatchSize":
+            return { ...state, batchSize: action.payload };
         default:
             return new Error();
     }
