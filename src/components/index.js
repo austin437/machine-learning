@@ -5,5 +5,6 @@ import { FeatureSelector } from "./FeatureSelector";
 import { LoadOptions } from "./LoadOptions";
 import { ProcessData } from "./ProcessData";
 import { CustomStepper } from "./CustomStepper";
+import { Instructions } from "./Instructions";
 
-export { Home, LinearRegression, LoadCsv, FeatureSelector, LoadOptions, ProcessData, CustomStepper };
+export { Home, LinearRegression, LoadCsv, FeatureSelector, LoadOptions, ProcessData, CustomStepper, Instructions };
