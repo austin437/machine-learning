@@ -11,13 +11,13 @@ describe("FeatureSelector", () => {
         expect(getByText(/weight/i)).not.toBeNull();
     });
 
-    it("should render 7 rows of Data type: Number", () => {
+    it("should render 7 rows of truthy values", () => {
         const { getAllByText } = render(<FeatureSelector linRegState={linRegStateMock} />);
 
         expect(getAllByText(/true/i).length).toBe(7);
     });
 
-    it("should render 3 rows of Data type: Number", () => {
+    it("should render 7 rows of truthy values, 2 of falsy values", () => {
         const { getAllByText } = render(<FeatureSelector linRegState={linRegStateMock} />);
 
         expect(getAllByText(/true/i).length).toBe(7);

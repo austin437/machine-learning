@@ -1,3 +1,3 @@
-import { linRegStateMock } from "./linearRegression";
+import { linRegStateMock, linRegDispatchMock } from "./linearRegression";
 
-export { linRegStateMock };
+export { linRegStateMock, linRegDispatchMock };
