@@ -8,6 +8,6 @@ test("renders App on load", () => {
             <App />
         </HashRouter>
     );
-    const linkElement = screen.getByText(/upload csv/i);
+    const linkElement = screen.getByText(/linear regression/i);
     expect(linkElement).toBeInTheDocument();
 });

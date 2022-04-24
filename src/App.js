@@ -9,9 +9,6 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/linear-regression" element={<LinearRegression />} />
-                {/* <Route path="/load-csv" element={<LoadCsv />} />
-                <Route path="/load-options" element={<LoadOptions />} />
-                <Route path="/process-data" element={<ProcessData />} /> */}
             </Routes>
         </div>
     );
