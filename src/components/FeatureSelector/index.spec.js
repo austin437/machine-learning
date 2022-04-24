@@ -1,49 +1,26 @@
-import { render } from '../../test-utils'
+import { render } from "../../test-utils";
 import { FeatureSelector } from "../index";
+import { linRegStateMock } from "../../testMocks";
 
 describe("FeatureSelector", () => {
     it("should render on load", () => {
-        const data = {
-            headers: ["mpg", "horsepower", "weight"],
-            rows: [
-                ["18", "130", "113"],
-                ["17", "150", "340"],
-            ],
-        };
-
-        const { getByText } = render(<FeatureSelector data={data} />);
+        const { getByText } = render(<FeatureSelector linRegState={linRegStateMock} />);
 
         expect(getByText(/mpg/i)).not.toBeNull();
         expect(getByText(/horsepower/i)).not.toBeNull();
         expect(getByText(/weight/i)).not.toBeNull();
     });
 
-    it("should render 3 rows of Data type: Number", () => {
-        const data = {
-            headers: ["mpg", "horsepower", "weight"],
-            rows: [
-                ["18", "130", "113"],
-                ["17", "150", "340"],
-            ],
-        };
+    it("should render 7 rows of Data type: Number", () => {
+        const { getAllByText } = render(<FeatureSelector linRegState={linRegStateMock} />);
 
-        const { getAllByText } = render(<FeatureSelector data={data} />);
-
-        expect(getAllByText(/true/i).length).toBe(3);
+        expect(getAllByText(/true/i).length).toBe(7);
     });
 
     it("should render 3 rows of Data type: Number", () => {
-        const data = {
-            headers: ["mpg", "horsepower", "weight"],
-            rows: [
-                ["18", "130", "A string value"],
-                ["17", "150", "340"],
-            ],
-        };
+        const { getAllByText } = render(<FeatureSelector linRegState={linRegStateMock} />);
 
-        const { getAllByText } = render(<FeatureSelector data={data} />);
-
-        expect(getAllByText(/true/i).length).toBe(2);
-        expect(getAllByText(/false/i).length).toBe(1);
+        expect(getAllByText(/true/i).length).toBe(7);
+        expect(getAllByText(/false/i).length).toBe(2);
     });
 });
