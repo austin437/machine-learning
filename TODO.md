@@ -1,10 +1,5 @@
 TODO
 
--   Amend end of stepper (add extra component) - then reset
--   Create disableNext button for linear-regression next
--   Update tests appropriately
-
-
 -   Create base class for regression.
 -   Move same functions into base class
 -   Sub-class from there for various gradient descent functions
@@ -48,3 +43,6 @@ DONE
 -   Use Stepper as navigation
 -   Change to use single state object from linear regression
 -   Remove unnecessary files
+-   Update tests appropriately
+-   Amend end of stepper (add extra component) - then reset
+-   Create disableNext property for linear-regression next

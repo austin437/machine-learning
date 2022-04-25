@@ -1,5 +1,6 @@
 const initialState = {
     activeStep: 0,
+    stepsToDisableNextOn: [1, 2],
     fileInput: null,
     csvHeaders: [],
     featureSelectorHeaders: [],

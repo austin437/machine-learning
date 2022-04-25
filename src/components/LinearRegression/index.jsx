@@ -1,10 +1,14 @@
-import React, { useReducer, useEffect, useCallback } from "react";
+import React, { useReducer, useEffect, useCallback, useMemo } from "react";
 import { CustomStepper } from "../CustomStepper";
 import { initialState, reducer } from "./lib";
-import { Instructions, LoadCsv, LoadOptions, ProcessData } from "../../components";
+import { Instructions, LoadCsv, LoadOptions, ProcessData, Finish } from "../../components";
 
 const LinearRegression = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
+
+    const disableNext = useMemo(() => {
+        return state.stepsToDisableNextOn.filter((x) => x === state.activeStep).length > 0;
+    }, [state.stepsToDisableNextOn, state.activeStep]);
 
     let component;
 
@@ -17,6 +21,9 @@ const LinearRegression = () => {
             break;
         case 3:
             component = <ProcessData linRegState={state} linRegDispatch={dispatch} />;
+            break;
+        case 4:
+            component = <Finish name="Linear Regression" />;
             break;
         case 0:
         default:
@@ -35,8 +42,7 @@ const LinearRegression = () => {
 
     return (
         <>
-            <CustomStepper linRegState={state} linRegDispatch={dispatch} />
-            <p>Active Step: {state.activeStep}</p>
+            <CustomStepper linRegState={state} linRegDispatch={dispatch} disableNext={disableNext} />
             <br />
             {component}
         </>

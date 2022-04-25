@@ -5,10 +5,11 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import PropTypes from "prop-types";
 
 const steps = ["Instructions", "Load CSV", "Load Options", "Process Data"];
 
-const CustomStepper = ({ linRegState, linRegDispatch, ...props }) => {
+const CustomStepper = ({ linRegState, linRegDispatch, disableNext, ...props }) => {
     const handleNext = () => {
         linRegDispatch({ type: "incrementActiveStep", payload: linRegState.activeStep + 1 });
     };
@@ -53,7 +54,7 @@ const CustomStepper = ({ linRegState, linRegDispatch, ...props }) => {
                             Back
                         </Button>
                         <Box sx={{ flex: "1 1 auto" }} />
-                        <Button onClick={handleNext}>
+                        <Button onClick={handleNext} disabled={disableNext}>
                             {linRegState.activeStep === steps.length - 1 ? "Finish" : "Next"}
                         </Button>
                     </Box>
@@ -61,6 +62,12 @@ const CustomStepper = ({ linRegState, linRegDispatch, ...props }) => {
             )}
         </Box>
     );
+};
+
+CustomStepper.propTypes = {
+    linRegState: PropTypes.object.isRequired,
+    linRegDispatch: PropTypes.func.isRequired,
+    disableNext: PropTypes.bool.isRequired,
 };
 
 export { CustomStepper };
