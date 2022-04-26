@@ -7,20 +7,20 @@ const LinearRegression = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const disableNext = useMemo(() => {
-        return state.stepsToDisableNextOn.filter((x) => x === state.activeStep).length > 0;
-    }, [state.stepsToDisableNextOn, state.activeStep]);
+        return state.stepper.stepsToDisableNextOn.filter((x) => x === state.stepper.activeStep).length > 0;
+    }, [state.stepper.stepsToDisableNextOn, state.stepper.activeStep]);
 
     let component;
 
-    switch (state.activeStep) {
+    switch (state.stepper.activeStep) {
         case 1:
-            component = <LoadCsv linRegState={state} linRegDispatch={dispatch} />;
+            component = <LoadCsv state={state} dispatch={dispatch} />;
             break;
         case 2:
-            component = <LoadOptions linRegState={state} linRegDispatch={dispatch} />;
+            component = <LoadOptions state={state} dispatch={dispatch} />;
             break;
         case 3:
-            component = <ProcessData linRegState={state} linRegDispatch={dispatch} />;
+            component = <ProcessData state={state} dispatch={dispatch} />;
             break;
         case 4:
             component = <Finish name="Linear Regression" />;
@@ -31,10 +31,10 @@ const LinearRegression = () => {
     }
 
     const resetState = useCallback(() => {
-        if (state.activeStep === 0) {
+        if (state.stepper.activeStep === 0) {
             dispatch({ type: "resetState", payload: initialState });
         }
-    }, [state.activeStep]);
+    }, [state.stepper.activeStep]);
 
     useEffect(() => {
         resetState();
@@ -42,7 +42,7 @@ const LinearRegression = () => {
 
     return (
         <>
-            <CustomStepper linRegState={state} linRegDispatch={dispatch} disableNext={disableNext} />
+            <CustomStepper state={state} dispatch={dispatch} disableNext={disableNext} />
             <br />
             {component}
         </>

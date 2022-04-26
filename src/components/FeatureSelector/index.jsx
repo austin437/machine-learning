@@ -13,17 +13,17 @@ import _ from "lodash";
 
 import classes from "./styles.module.css";
 
-const FeatureSelector = ({ linRegState, linRegDispatch, ...props }) => {
+const FeatureSelector = ({ state, dispatch, ...props }) => {
     const [dataValues, setDataValues] = useState([]);
 
     const headers = useMemo(
         () =>
-            linRegState.csvHeaders.map((v, i) => ({
+            state.csvHeaders.map((v, i) => ({
                 fieldName: v,
-                isNumeric: !isNaN(parseInt(linRegState.csvData[0][i])),
+                isNumeric: !isNaN(parseInt(state.csvData[0][i])),
                 isFeature: false,
             })),
-        [linRegState.csvHeaders, linRegState.csvData]
+        [state.csvHeaders, state.csvData]
     );
 
     useEffect(() => {
@@ -32,8 +32,8 @@ const FeatureSelector = ({ linRegState, linRegDispatch, ...props }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        linRegDispatch({ type: "setFeatureSelectorHeaders", payload: dataValues });
-        linRegDispatch({ type: "incrementActiveStep" });
+        dispatch({ type: "setFeatureSelectorHeaders", payload: dataValues });
+        dispatch({ type: "incrementActiveStep" });
     };
 
     const handleInputChange = (row) => {
@@ -91,10 +91,8 @@ const FeatureSelector = ({ linRegState, linRegDispatch, ...props }) => {
 };
 
 FeatureSelector.propTypes = {
-    data: PropTypes.shape({
-        headers: PropTypes.array.isRequired,
-        rows: PropTypes.array.isRequired,
-    }),
+    state: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
 };
 
 export { FeatureSelector };

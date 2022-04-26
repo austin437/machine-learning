@@ -2,40 +2,41 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Table, TableBody, TableRow, TableHead, TableCell, TableContainer, Input, Paper } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
+import PropTypes from "prop-types";
 
 import classes from "./styles.module.css";
 import { useActions, useLinearRegression, AlertContainer } from "./lib";
 
-const ProcessData = ({ linRegState, linRegDispatch, ...props }) => {
-    const { initialFeatures, initialLabels, featurePredictionData } = useActions(linRegState);
+const ProcessData = ({ state, dispatch, ...props }) => {
+    const { initialFeatures, initialLabels, featurePredictionData } = useActions(state);
     const { calculatePrediction } = useLinearRegression(
-        linRegState.featureInputs,
-        linRegDispatch,
+        state.featureInputs,
+        dispatch,
         initialFeatures,
         initialLabels,
-        linRegState.options
+        state.options
     );
 
     useEffect(() => {
-        linRegDispatch({ type: "setFeatureInputs", payload: featurePredictionData.map((v) => v.average) });
+        dispatch({ type: "setFeatureInputs", payload: featurePredictionData.map((v) => v.average) });
     }, []);
 
     const onInputChange = (i, event) => {
-        const updatedInputs = [...linRegState.featureInputs];
+        const updatedInputs = [...state.featureInputs];
         updatedInputs[i] = parseFloat(event.target.value);
-        linRegDispatch({ type: "setFeatureInputs", payload: updatedInputs });
+        dispatch({ type: "setFeatureInputs", payload: updatedInputs });
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
         try {
-            linRegDispatch({ type: "setLoading", payload: true });
+            dispatch({ type: "setLoading", payload: true });
             calculatePrediction();
         } catch (e) {
             console.log(e);
         } finally {
-            linRegDispatch({ type: "setLoading", payload: false });
+            dispatch({ type: "setLoading", payload: false });
         }
     };
 
@@ -67,7 +68,7 @@ const ProcessData = ({ linRegState, linRegDispatch, ...props }) => {
                                                 step: "0.01",
                                                 min: 0,
                                             }}
-                                            value={linRegState.featureInputs[i]}
+                                            value={state.featureInputs[i]}
                                             placeholder="Enter Number"
                                             required
                                             onChange={onInputChange.bind(this, i)}
@@ -80,23 +81,23 @@ const ProcessData = ({ linRegState, linRegDispatch, ...props }) => {
                     </Table>
                 </TableContainer>
                 <div className={classes.buttonContainer}>
-                    <LoadingButton loading={linRegState.loading} type="submit" variant="contained">
-                        Calculate &nbsp;{" "}
-                        <span className={classes.capitalize}>{linRegState.options.labels.join(", ")}</span>
+                    <LoadingButton loading={state.loading} type="submit" variant="contained">
+                        Calculate &nbsp; <span className={classes.capitalize}>{state.options.labels.join(", ")}</span>
                     </LoadingButton>
                 </div>
             </form>
-            {linRegState.r2 != null && linRegState.labelPrediction != null ? (
-                <AlertContainer
-                    r2={linRegState.r2}
-                    labels={linRegState.options.labels}
-                    labelPrediction={linRegState.labelPrediction}
-                />
+            {state.r2 != null && state.labelPrediction != null ? (
+                <AlertContainer r2={state.r2} labels={state.options.labels} labelPrediction={state.labelPrediction} />
             ) : (
                 ""
             )}
         </>
     );
+};
+
+ProcessData.propTypes = {
+    state: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
 };
 
 export { ProcessData };

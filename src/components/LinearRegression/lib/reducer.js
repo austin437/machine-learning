@@ -1,52 +1,54 @@
 import _ from "lodash";
 
 function reducer(state, action) {
-    const newState = _.cloneDeep(state);
-    const newOptions = newState.options;
+    const returnState = _.cloneDeep(state);
 
     switch (action.type) {
-        case "resetState": 
-            return {...action.payload};
+        case "resetState":
+            return { ...action.payload };
         case "incrementActiveStep":
-            return { ...newState, activeStep: state.activeStep + 1 };
+            returnState.stepper.activeStep++;
+            return { ...returnState, stepper: returnState.stepper };
         case "decrementActiveStep":
-            return { ...newState, activeStep: state.activeStep - 1 };
+            returnState.stepper.activeStep--;
+            return { ...returnState, stepper: returnState.stepper };
         case "resetActiveStep":
-            return { ...newState, activeStep: 0 };
+            returnState.stepper.activeStep = 0;
+            return { ...returnState, stepper: returnState.stepper };
         case "setFileInput":
-            return { ...newState, fileInput: action.payload };
+            return { ...returnState, fileInput: action.payload };
         case "setCsvHeaders":
-            return { ...newState, csvHeaders: action.payload };
+            return { ...returnState, csvHeaders: action.payload };
         case "setFeatureSelectorHeaders":
-            return { ...newState, featureSelectorHeaders: action.payload };
+            return { ...returnState, featureSelectorHeaders: action.payload };
         case "setCsvData":
-            return { ...newState, csvData: action.payload };
+            return { ...returnState, csvData: action.payload };
         case "setPredictionLabel":
-            newOptions.labels = [action.payload];
-            return { ...newState, options: newOptions };
+            returnState.options.labels = [action.payload];
+            return { ...returnState, options: returnState.options };
         case "setSplitTest":
-            newOptions.splitTest = action.payload;
-            return { ...newState, options: newOptions };
+            returnState.options.splitTest = action.payload;
+            return { ...returnState, options: returnState.options };
         case "setShuffle":
-            newOptions.shuffle = action.payload;
-            return { ...newState, options: newOptions };
+            returnState.options.shuffle = action.payload;
+            return { ...returnState, options: returnState.options };
         case "setLearningRate":
-            newOptions.learningRate = action.payload;
-            return { ...newState, options: newOptions };
+            returnState.options.learningRate = action.payload;
+            return { ...returnState, options: returnState.options };
         case "setIterations":
-            newOptions.iterations = action.payload;
-            return { ...newState, options: newOptions };
+            returnState.options.iterations = action.payload;
+            return { ...returnState, options: returnState.options };
         case "setBatchSize":
-            newOptions.batchSize = action.payload;
-            return { ...newState, options: newOptions };
+            returnState.options.batchSize = action.payload;
+            return { ...returnState, options: returnState.options };
         case "setFeatureInputs":
-            return { ...newState, featureInputs: action.payload };
+            return { ...returnState, featureInputs: action.payload };
         case "setR2":
-            return { ...newState, r2: action.payload };
+            return { ...returnState, r2: action.payload };
         case "setLabelPrediction":
-            return { ...newState, labelPrediction: action.payload };
+            return { ...returnState, labelPrediction: action.payload };
         case "setLoading":
-            return { ...newState, loading: action.payload };
+            return { ...returnState, loading: action.payload };
         default:
             return new Error();
     }

@@ -7,31 +7,31 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 
-const CustomStepper = ({ linRegState, linRegDispatch, disableNext, ...props }) => {
+const CustomStepper = ({ state, dispatch, disableNext, ...props }) => {
     const handleNext = () => {
-        linRegDispatch({ type: "incrementActiveStep", payload: linRegState.activeStep + 1 });
+        dispatch({ type: "incrementActiveStep", payload: state.stepper.activeStep + 1 });
     };
 
     const handleBack = () => {
-        linRegDispatch({ type: "decrementActiveStep", payload: linRegState.activeStep - 1 });
+        dispatch({ type: "decrementActiveStep", payload: state.stepper.activeStep - 1 });
     };
 
     const handleReset = () => {
-        linRegDispatch({ type: "resetActiveStep", payload: 0 });
+        dispatch({ type: "resetActiveStep", payload: 0 });
     };
 
     return (
         <Box sx={{ width: "100%" }}>
-            <Stepper activeStep={linRegState.activeStep}>
-                {linRegState.steps.map((step, index) => {
+            <Stepper activeStep={state.stepper.activeStep}>
+                {state.stepper.steps.map((step, index) => {
                     return (
-                        <Step key={step} completed={linRegState.activeStep > index}>
+                        <Step key={step} completed={state.stepper.activeStep > index}>
                             <StepLabel optional={false}>{step}</StepLabel>
                         </Step>
                     );
                 })}
             </Stepper>
-            {linRegState.activeStep === linRegState.steps.length ? (
+            {state.stepper.activeStep === state.stepper.steps.length ? (
                 <React.Fragment>
                     <Typography sx={{ mt: 2, mb: 1 }}>All state completed - you&apos;re finished</Typography>
                     <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
@@ -41,11 +41,11 @@ const CustomStepper = ({ linRegState, linRegDispatch, disableNext, ...props }) =
                 </React.Fragment>
             ) : (
                 <React.Fragment>
-                    <Typography sx={{ mt: 2, mb: 1 }}>Step {linRegState.activeStep + 1}</Typography>
+                    <Typography sx={{ mt: 2, mb: 1 }}>Step {state.stepper.activeStep + 1}</Typography>
                     <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                         <Button
                             color="inherit"
-                            disabled={linRegState.activeStep === 0}
+                            disabled={state.stepper.activeStep === 0}
                             onClick={handleBack}
                             sx={{ mr: 1 }}
                         >
@@ -53,7 +53,9 @@ const CustomStepper = ({ linRegState, linRegDispatch, disableNext, ...props }) =
                         </Button>
                         <Box sx={{ flex: "1 1 auto" }} />
                         <Button onClick={handleNext} disabled={disableNext}>
-                            {linRegState.activeStep === linRegState.steps.length - 1 ? "Finish" : "Next"}
+                            {state.stepper.activeStep === state.stepper.steps.length - 1
+                                ? "Finish"
+                                : "Next"}
                         </Button>
                     </Box>
                 </React.Fragment>
@@ -63,8 +65,8 @@ const CustomStepper = ({ linRegState, linRegDispatch, disableNext, ...props }) =
 };
 
 CustomStepper.propTypes = {
-    linRegState: PropTypes.object.isRequired,
-    linRegDispatch: PropTypes.func.isRequired,
+    state: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
     disableNext: PropTypes.bool.isRequired,
 };
 
