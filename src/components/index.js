@@ -1,5 +1,6 @@
 import { Home } from "./Home";
 import { LinearRegression } from "./LinearRegression";
+import { MultinominalLogisticRegression } from "./MultinominalLogisticRegression";
 import { LoadCsv } from "./LoadCsv";
 import { FeatureSelector } from "./FeatureSelector";
 import { LoadOptions } from "./LoadOptions";
@@ -11,6 +12,7 @@ import { Finish } from "./Finish";
 export {
     Home,
     LinearRegression,
+    MultinominalLogisticRegression,
     LoadCsv,
     FeatureSelector,
     LoadOptions,
