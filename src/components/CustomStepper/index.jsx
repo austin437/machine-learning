@@ -7,8 +7,6 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 
-const steps = ["Instructions", "Load CSV", "Load Options", "Process Data"];
-
 const CustomStepper = ({ linRegState, linRegDispatch, disableNext, ...props }) => {
     const handleNext = () => {
         linRegDispatch({ type: "incrementActiveStep", payload: linRegState.activeStep + 1 });
@@ -25,7 +23,7 @@ const CustomStepper = ({ linRegState, linRegDispatch, disableNext, ...props }) =
     return (
         <Box sx={{ width: "100%" }}>
             <Stepper activeStep={linRegState.activeStep}>
-                {steps.map((step, index) => {
+                {linRegState.steps.map((step, index) => {
                     return (
                         <Step key={step} completed={linRegState.activeStep > index}>
                             <StepLabel optional={false}>{step}</StepLabel>
@@ -33,7 +31,7 @@ const CustomStepper = ({ linRegState, linRegDispatch, disableNext, ...props }) =
                     );
                 })}
             </Stepper>
-            {linRegState.activeStep === steps.length ? (
+            {linRegState.activeStep === linRegState.steps.length ? (
                 <React.Fragment>
                     <Typography sx={{ mt: 2, mb: 1 }}>All state completed - you&apos;re finished</Typography>
                     <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
@@ -55,7 +53,7 @@ const CustomStepper = ({ linRegState, linRegDispatch, disableNext, ...props }) =
                         </Button>
                         <Box sx={{ flex: "1 1 auto" }} />
                         <Button onClick={handleNext} disabled={disableNext}>
-                            {linRegState.activeStep === steps.length - 1 ? "Finish" : "Next"}
+                            {linRegState.activeStep === linRegState.steps.length - 1 ? "Finish" : "Next"}
                         </Button>
                     </Box>
                 </React.Fragment>

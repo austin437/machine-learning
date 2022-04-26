@@ -1,4 +1,5 @@
 const initialState = {
+    steps: ["Instructions", "Load CSV", "Load Options", "Process Data"],
     activeStep: 0,
     stepsToDisableNextOn: [1, 2],
     fileInput: null,
