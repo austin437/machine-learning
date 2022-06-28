@@ -1,5 +1,10 @@
 TODO
 
+- Create page for demonstrating loss minimization
+    - Will have inputs for wx + b.
+    - As inputs are changed a graph line moves into best fit position
+    - A chart shows the result of the change: https://recharts.org/en-US/
+
 -   Create base class for regression.
 -   Move same functions into base class
 -   Sub-class from there for various gradient descent functions
